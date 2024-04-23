@@ -1,0 +1,37 @@
+<?php
+function parseEnv($filePath)
+{
+    $file = fopen($filePath, 'r');
+    while (($line = fgets($file)) !== false)
+    {
+        $line = trim($line);
+        if (!empty($line) && strpos($line, '=') !== false)
+        {
+            list($key, $value) = explode('=', $line, 2);
+            $_ENV[$key] = $value;
+        }
+    }
+    fclose($file);
+}
+
+// Load the .env file
+parseEnv( '../.env');
+
+// Now you can access your database credentials
+$dbHost = $_ENV['DB_HOST'];
+$dbUser = $_ENV['DB_USER'];
+$dbPass = $_ENV['DB_PASS'];
+$dbName = $_ENV['DB_NAME'];
+
+// Use these variables to connect to your database
+$connection = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
+// Check connection
+if ($connection->connect_error)
+{
+    die("Connection failed: " . $connection->connect_error);
+} else
+{
+    echo "Connected successfully";
+}
+
+?>
