@@ -2,6 +2,8 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+require_once '../../partials/_db.php';
+
 $mail = new PHPMailer(true);
 $emailSend = false;
 
@@ -16,9 +18,13 @@ function generateOTP()
 $step1 = true;
 $step2 = false;
 
+$userOtpMsg = false;
+$userPwdMsg = false;
+$emailSend;
+
 if (isset($_POST['userEmail']) && isset($_POST['Next']))
 {
-    echo $_POST['Next'];
+    
     $userEmail = $_POST['userEmail'];
     $_SESSION['userEmail'] = $userEmail;
     // Generate and store OTP in session
@@ -42,7 +48,7 @@ if (isset($_POST['userEmail']) && isset($_POST['Next']))
     try
     {
         $mail->send();
-        $emailSend = true;
+        $emailSend = 'OTP sent to <span class="text-success">' . $_SESSION['userEmail'] . '</span>';
     } catch (Exception $e)
     {
         echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
@@ -50,9 +56,33 @@ if (isset($_POST['userEmail']) && isset($_POST['Next']))
     $step1 = false;
     $step2 = true;
 }
+
+if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && isset($_POST['userOtp']))
+{
+    $userEmail = $_POST['userEmail'];
+    echo $userPassword = $_POST['userPassword'];
+    echo $userConfirmPassword = $_POST['userConfirmPassword'];
+    echo $userOtp = $_POST['userOtp'];
+
+    if ($userOtp == $_SESSION['otp'] && isset($_POST['userPassword']))
+    {
+        if ($userPassword == $userConfirmPassword)
+        {
+            echo "OTP verified";
+        } else
+        {
+            $userPwdMsg = '<span class="text-danger">Passwords not match';
+            $step1 = false;
+            $step2 = true;
+        }
+    } else
+    {
+        $userOtpMsg = '<span class="text-danger">Wrong! OTP. Check again';
+        $step1 = false;
+        $step2 = true;
+    }
+}
 ?>
-
-
 
 <form class="shadow p-3 rounded needs-validation" novalidate method="POST" action="">
     <div class="text-center mb-3">
@@ -60,7 +90,7 @@ if (isset($_POST['userEmail']) && isset($_POST['Next']))
     </div>
     <div class="mb-3" <?php echo $step1 ? '' : 'hidden' ?>>
         <label for="userEmail" class="form-label">Email address</label>
-        <input autocomplete="off" type="email" class="form-control" id="userEmail" name="userEmail"
+        <input autocomplete="false" aria-autocomplete="false" type="email" class="form-control" id="userEmail" name="userEmail"
             aria-describedby="emailHelp" value="<?php echo isset($_POST['userEmail']) ? $_POST['userEmail'] : '' ?>"
             required>
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
@@ -69,20 +99,23 @@ if (isset($_POST['userEmail']) && isset($_POST['Next']))
         </div>
     </div>
     <div class="my-2 text-muted fs-6" <?php echo $step2 ? '' : 'hidden' ?>>
-        <p class="fs-6">Check OTP on <span
-                class="text-success"><?php echo isset($_POST['userEmail']) ? $_POST['userEmail'] : '' ?></span></p>
+        <?php
+        echo $emailSend;
+        ?>
     </div>
     <div class="mb-3" <?php echo $step2 ? '' : 'hidden' ?>>
         <label for="userPassword" class="form-label">Password</label>
-        <input type="password" class="form-control" id="userPassword" name="userPassword" <?php echo $step2 ? 'required' : 'hidden' ?>>
+        <input autocomplete="off" aria-autocomplete="false" type="password" value="" class="form-control" id="userPassword" name="userPassword" <?php echo $step2 ? 'required' : 'hidden' ?>>
     </div>
     <div class="mb-3" <?php echo $step2 ? '' : 'hidden' ?>>
         <label for="userConfirmPassword" class="form-label">Confirm Password</label>
         <input type="password" class="form-control" id="userConfirmPassword" name="userConfirmPassword" <?php echo $step2 ? 'required' : 'hidden' ?>>
+        <span class="text-danger"><?php echo $userPwdMsg ?></span>
     </div>
-    <div class="mb-3" <?php echo $step2 ? '' : 'hidden' ?>>
+    <div class="mb-3" <?php echo $step2 ? 'required' : 'hidden' ?>>
         <label for="userOtp" class="form-label">OTP</label>
         <input type="number" class="form-control" minlength="6" maxlength="6" id="userOtp" name="userOtp" <?php echo $step2 ? 'required' : 'hidden' ?>>
+        <span class="text-danger"><?php echo $userOtpMsg ?> </span>
     </div>
     <div class="mb-3 form-check" hidden>
         <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -90,7 +123,7 @@ if (isset($_POST['userEmail']) && isset($_POST['Next']))
     </div>
 
     <div class="text-center">
-        <button type="submit" name="<?php echo $step1 ? 'Next' : 'Signup' ?>" class="btn btn-success text-center"
+        <button id="" type="submit" name="<?php echo $step1 ? 'Next' : 'Signup' ?>" class="btn btn-success text-center"
             fdprocessedid="vw48xs" style="width: 100%;"><?php echo $step1 ? 'Next ->' : 'Signup' ?></button>
     </div>
 </form>
@@ -116,6 +149,11 @@ if ($emailSend)
                 if (!form.checkValidity()) {
                     event.preventDefault()
                     event.stopPropagation()
+                    // var button = form.querySelector('button[type="submit"]');
+                    // button.innerHTML = `
+                    //     <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                    // <span role="status">Sending OTP ...</span>
+                    //     `;
                 }
 
                 form.classList.add('was-validated')

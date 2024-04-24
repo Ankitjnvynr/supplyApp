@@ -15,7 +15,8 @@ function parseEnv($filePath)
 }
 
 // Load the .env file
-parseEnv( '../.env');
+$root = $_SERVER['DOCUMENT_ROOT'];
+parseEnv( $root.'/supplyApp/.env');
 
 // Now you can access your database credentials
 $dbHost = $_ENV['DB_HOST'];
@@ -31,7 +32,7 @@ if ($connection->connect_error)
     die("Connection failed: " . $connection->connect_error);
 } else
 {
-    echo "Connected successfully";
+    // echo "Connected successfully";
 }
 
 ?>
