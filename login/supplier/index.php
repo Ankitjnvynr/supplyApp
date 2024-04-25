@@ -43,7 +43,7 @@ require '../../phpmailer/SMTP.php';
 
         <div class="choose-user-type-box d-flex gap-4 flex-column align-items-center justify-content-center ">
             <?php
-            include 'signup.php';
+            isset($_GET['signup']) ? include 'signup.php' : include 'login.php';
             ?>
         </div>
     </div>

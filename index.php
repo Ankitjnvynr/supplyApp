@@ -1,8 +1,12 @@
 <?php
-// use PHPMailer\PHPMailer\PHPMailer;
-// use PHPMailer\PHPMailer\Exception;
-
-// require 'vendor/PHPMailer/src/Exception.php';
-// require 'path/to/PHPMailer/src/PHPMailer.php';
-// require 'path/to/PHPMailer/src/SMTP.php';
-// ?>
+session_start();
+if (!isset($_SESSION['loggedin'])){
+    header('location: login/');
+}else
+{
+    echo $_SESSION['loggedin'];
+    echo $_SESSION['userId'];
+    echo $_SESSION['userEmail'];
+    echo $_SESSION['userName'];
+}
+?>
