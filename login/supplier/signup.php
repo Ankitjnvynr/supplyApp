@@ -57,18 +57,35 @@ if (isset($_POST['userEmail']) && isset($_POST['Next']))
     $step2 = true;
 }
 
-if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && isset($_POST['userOtp']))
+if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && isset($_POST['userOtp']) && isset($_POST['Signup']))
 {
-    $userEmail = $_POST['userEmail'];
-    echo $userPassword = $_POST['userPassword'];
-    echo $userConfirmPassword = $_POST['userConfirmPassword'];
-    echo $userOtp = $_POST['userOtp'];
+    // $userEmail = $_POST['userEmail'];
+    $userPassword = $_POST['userPassword'];
+    $userConfirmPassword = $_POST['userConfirmPassword'];
+    $userOtp = $_POST['userOtp'];
 
     if ($userOtp == $_SESSION['otp'] && isset($_POST['userPassword']))
     {
         if ($userPassword == $userConfirmPassword)
         {
-            echo "OTP verified";
+            $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
+            // Prepare the statement
+            $stmt = $conn->prepare($sql);
+            if ($stmt) {
+                // Bind parameters and execute the statement
+                $stmt->bind_param("ss", $_SESSION['userEmail'], md5($userPassword));
+                if ($stmt->execute()) {
+                    // Redirect to step 2
+                    header("Location: meta.php");
+                    exit();
+                } else {
+                    echo "Error inserting record: " . $stmt->error;
+                }
+                // Close the statement
+                $stmt->close();
+            } else {
+                echo "Error preparing statement: " . $conn->error;
+            }
         } else
         {
             $userPwdMsg = '<span class="text-danger">Passwords not match';

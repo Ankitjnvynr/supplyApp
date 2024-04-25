@@ -25,9 +25,9 @@ $dbPass = $_ENV['DB_PASS'];
 $dbName = $_ENV['DB_NAME'];
 
 // Use these variables to connect to your database
-$connection = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
+$conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
 // Check connection
-if ($connection->connect_error)
+if ($conn->connect_error)
 {
     die("Connection failed: " . $connection->connect_error);
 } else
