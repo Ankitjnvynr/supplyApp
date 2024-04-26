@@ -27,7 +27,7 @@
     width: 100%;
     background-color: var(--clr1);
     border-radius: 5px;
-    animation: menuAnimation 0.5s ease-in-out ;
+    animation: menuAnimation 0.3s ease-in-out ;
     transform-origin: center;
     z-index: 0;
 }
