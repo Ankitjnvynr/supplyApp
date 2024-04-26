@@ -28,11 +28,14 @@ if (isset($_POST['userEmail']) && isset($_POST['Next']))
     $_SESSION['otp'] = generateOTP();
     $sql = "SELECT email FROM `users` WHERE email = '$userEmail' ";
     $res = $conn->query($sql);
-    if($res){
+    if ($res)
+    {
         $nums = $res->num_rows;
-        if($nums>0){
+        if ($nums > 0)
+        {
             $alreadyMsg = "Email already Exist";
-        }else{
+        } else
+        {
             $mail->isSMTP();
             $mail->Host = 'smtp-mail.outlook.com';
             $mail->SMTPAuth = true;
@@ -52,7 +55,7 @@ if (isset($_POST['userEmail']) && isset($_POST['Next']))
             {
                 $mail->send();
                 $emailSend = 'OTP sent to <span class="text-success">' . $_SESSION['userEmail'] . '</span>';
-                
+
             } catch (Exception $e)
             {
                 echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
@@ -74,13 +77,14 @@ if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && iss
     {
         if ($userPassword == $userConfirmPassword)
         {
-            $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
+            $userType = 'supplier';
+            $sql = "INSERT INTO users (email, password,user_type) VALUES (?, ?,?)";
             // Prepare the statement
             $stmt = $conn->prepare($sql);
             if ($stmt)
             {
                 // Bind parameters and execute the statement
-                $stmt->bind_param("ss", $_SESSION['userEmail'], md5($userPassword));
+                $stmt->bind_param("sss", $_SESSION['userEmail'], md5($userPassword), $userType);
                 if ($stmt->execute())
                 {
                     $_SESSION['loggedin'] = true;
@@ -114,7 +118,7 @@ if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && iss
 
 <form class="shadow p-3 rounded needs-validation" novalidate method="POST" action="">
     <div class="text-center mb-3">
-        <h4 class="text-success" >Sign Up</h4>
+        <h4 class="text-success">Sign Up</h4>
     </div>
     <div class="mb-3" <?php echo $step1 ? '' : 'hidden' ?>>
         <label for="userEmail" class="form-label">Email address</label>
@@ -124,9 +128,10 @@ if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && iss
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         <div class="text-danger fs-6">
             <?php
-                if(isset($alreadyMsg)){
+            if (isset($alreadyMsg))
+            {
                 echo $alreadyMsg;
-                }
+            }
             ?>
         </div>
         <div class="invalid-feedback">

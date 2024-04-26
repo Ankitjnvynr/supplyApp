@@ -1,0 +1,45 @@
+.footer{
+    height: 59px;
+    width: 100%;
+}
+
+.dashboard a{
+    z-index: 2 !important;
+    text-decoration: none;
+    position: relative;
+    padding: 5px 10px;
+    color: var(--clr4);
+}
+.dashboard a span{
+    font-size: 12px;
+}
+.dashboard.active a{
+    padding: 5px 10px;
+    color: var(--clr1);
+    /* width: 80px; */
+    /* animation: menuAnimation 0.5s ease-in-out ; */
+}
+.dashboard.active::after{
+    content: '';
+    position: absolute;
+    bottom:  0;
+    height: 3px;
+    width: 100%;
+    background-color: var(--clr1);
+    border-radius: 5px;
+    animation: menuAnimation 0.5s ease-in-out ;
+    transform-origin: center;
+    z-index: 0;
+}
+.dashboard.active a span{
+font-size: 12px;
+font-weight: 600;
+}
+@keyframes menuAnimation {
+    from{
+        width:0;
+    }
+    to{
+    width: 100%;
+    }
+}
