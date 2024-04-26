@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!isset($_SESSION['loggedin']))
+{
+    header('location:../../');
+    exit;
+}
 
 require_once '../../partials/_db.php';
 

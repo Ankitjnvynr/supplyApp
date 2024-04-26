@@ -6,6 +6,7 @@ require_once 'partials/_db.php';
 $sql = "CREATE TABLE IF NOT EXISTS users  (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
+    user_type varchar(20) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,  -- Make email column unique
     password VARCHAR(500) NOT NULL,
     phone VARCHAR(15) NOT NULL,

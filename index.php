@@ -1,12 +1,13 @@
 <?php
 session_start();
-if (!isset($_SESSION['loggedin'])){
-    header('location: login/');
-}else
+if (!isset($_SESSION['loggedin']))
 {
-    echo $_SESSION['loggedin'];
-    echo $_SESSION['userId'];
-    echo $_SESSION['userEmail'];
-    echo $_SESSION['userName'];
+    header('location: login/');
 }
+
+echo $_SESSION['loggedin'];
+echo $_SESSION['userId'];
+echo $_SESSION['userEmail'];
+echo $_SESSION['userName'];
+
 ?>

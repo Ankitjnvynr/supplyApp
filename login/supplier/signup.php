@@ -7,8 +7,6 @@ require_once '../../partials/_db.php';
 $mail = new PHPMailer(true);
 $emailSend = false;
 
-session_start(); // Start the session
-
 // Function to generate OTP
 function generateOTP()
 {
@@ -25,6 +23,9 @@ $emailSend;
 if (isset($_POST['userEmail']) && isset($_POST['Next']))
 {
     $userEmail = $_POST['userEmail'];
+    $_SESSION['userEmail'] = $userEmail;
+    // Generate and store OTP in session
+    $_SESSION['otp'] = generateOTP();
     $sql = "SELECT email FROM `users` WHERE email = '$userEmail' ";
     $res = $conn->query($sql);
     if($res){
@@ -51,9 +52,7 @@ if (isset($_POST['userEmail']) && isset($_POST['Next']))
             {
                 $mail->send();
                 $emailSend = 'OTP sent to <span class="text-success">' . $_SESSION['userEmail'] . '</span>';
-                $_SESSION['userEmail'] = $userEmail;
-                // Generate and store OTP in session
-                $_SESSION['otp'] = generateOTP();
+                
             } catch (Exception $e)
             {
                 echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
@@ -84,6 +83,7 @@ if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && iss
                 $stmt->bind_param("ss", $_SESSION['userEmail'], md5($userPassword));
                 if ($stmt->execute())
                 {
+                    $_SESSION['loggedin'] = true;
                     // Redirect to step 2
                     header("Location: meta.php");
                     exit();

@@ -1,6 +1,6 @@
 <?php
 require_once '../../partials/_db.php';
-session_start();
+
 if (isset($_POST['loginbtn']))
 {
     $userEmail = $_POST['userEmail'];
@@ -18,7 +18,6 @@ if (isset($_POST['loginbtn']))
                     echo $_SESSION['loggedin'] = true;
                     echo $_SESSION['userId'] = $row['id'];
                     echo $_SESSION['userEmail'] = $row['email'];
-                    echo $_SESSION['userName'] = $row['name'];
                     header("location: ../handlelogin.php");
                     exit;
                 }else{

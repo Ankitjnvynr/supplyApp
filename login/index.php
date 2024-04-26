@@ -1,5 +1,13 @@
 <?php
+session_start();
+if (isset($_SESSION['loggedin']))
+{
+    echo "dfs";
+    header('location:../');
+    exit;
+}
 $emailSend = false;
+
 ?>
 
 <!doctype html>

@@ -5,6 +5,14 @@ use PHPMailer\PHPMailer\Exception;
 require '../../phpmailer/Exception.php';
 require '../../phpmailer/PHPMailer.php';
 require '../../phpmailer/SMTP.php';
+session_start();
+
+if (isset($_SESSION['loggedin']))
+{
+    echo "dfs";
+    header('location:../../');
+    exit;
+}
 ?>
 
 <!doctype html>
@@ -29,7 +37,8 @@ require '../../phpmailer/SMTP.php';
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
             <div id="emailToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
-                    <img src="https://cliply.co/wp-content/uploads/2021/03/372103860_CHECK_MARK_400px.gif" class="rounded me-2" alt="...">
+                    <img src="https://cliply.co/wp-content/uploads/2021/03/372103860_CHECK_MARK_400px.gif"
+                        class="rounded me-2" alt="...">
                     <strong class="me-auto">Email</strong>
                     <small>0 mins ago</small>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
