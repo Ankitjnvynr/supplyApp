@@ -21,7 +21,7 @@
         </h6>
         <div class="d-flex gap-3 fs-5">
             <!-- <a href="#"><i class="fa-solid fa-camera text-muted"></i></a> -->
-            <a href="../login/logout.php"><i class="fa-solid fa-right-from-bracket text-muted"></i></a>
+            <a href="../login/logout.php"><i class="fa-solid fa-right-from-bracket text-danger"></i></a>
         </div>
     </div>
     <div class="rounded-pill bg-secondary-subtle p-2 px-3 d-flex align-items-center mb-2">
