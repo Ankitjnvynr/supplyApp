@@ -45,14 +45,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $data = array(
                 'userEmail' => $loginEmail,
             );
-            $getid = "SELECT id FROM `users` WHERE email = '$loginEmail'";
+            $getid = "SELECT * FROM `users` WHERE email = '$loginEmail'";
             $respon = $conn->query($getid);
             while($userid = mysqli_fetch_assoc($respon)){
                 $_SESSION['userId'] = $userid['id'];
+                $_SESSION['userType'] = $userid['user_type'];
             }
             $_SESSION['userEmail']=$loginEmail;
             $_SESSION['loggedin'] = true;
             $_SESSION['userName'] = $name;
+            
             header("location: ../handlelogin.php");
             exit;
         } else

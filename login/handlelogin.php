@@ -16,18 +16,25 @@ if (isset($_SESSION['loggedin']))
             echo "dfs";
             while ($row = mysqli_fetch_assoc($res))
             {
-
                 if (empty($row['name']) || empty($row['phone']) || empty($row['state']) || empty($row['district']) || empty($row['tehsil']) || empty($row['city']) || empty($row['pin_code']) || empty($row['shop_name']))
                 {
                     echo "One or more required fields are blank or null.";
-                    header('location:supplier/meta.php');
+                    if ($_SESSION['userType'] == 'supplier') {
+                        header('location:supplier/meta.php');
+                    } else {
+                        header('location:shopee/meta.php');
+                    }
+                    
                     exit;
-                } else
-                {
-                    header('location:../');
+                } else {
                     $_SESSION['userID'] = $row['id'];
                     $_SESSION['userName'] = $row['name'];
-
+                    if ($_SESSION['userType'] == 'supplier') {
+                        header('location:../supplier');
+                    } else {
+                        header('location:../shopee');
+                    }
+                    
                     exit;
                 }
 

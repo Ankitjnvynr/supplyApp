@@ -18,6 +18,7 @@ if (isset($_POST['loginbtn']))
                     echo $_SESSION['loggedin'] = true;
                     echo $_SESSION['userId'] = $row['id'];
                     echo $_SESSION['userEmail'] = $row['email'];
+                    echo $_SESSION['userType'] = $row['user_type'];
                     header("location: ../handlelogin.php");
                     exit;
                 }else{

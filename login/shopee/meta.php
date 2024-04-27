@@ -49,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $respon = $conn->query($getid);
             while($userid = mysqli_fetch_assoc($respon)){
                 $_SESSION['userId'] = $userid['id'];
+                $_SESSION['userType'] = $userid['user_type'];
             }
             $_SESSION['userEmail']=$loginEmail;
             $_SESSION['loggedin'] = true;
