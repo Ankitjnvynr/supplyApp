@@ -1,9 +1,9 @@
-<div class="position-fixed bottom-0 start-50 translate-middle-x bg-white ">
+<div  class="position-fixed bottom-0 start-50 translate-middle-x bg-white ">
 
     <hr class="p-0 m-0">
     <div class=" footer d-flex justify-content-between align-items-center">
         <div class="dashboard  position-relative  <?php if ($activeMenu == 'dashboard') echo 'active' ?>">
-            <a href="../supplier" class="d-flex flex-column justify-content-center align-items-center  ">
+            <a href="./" class="d-flex flex-column justify-content-center align-items-center  ">
                 <i class="fa-solid fa-house"></i>
                 <span>Dashboard</span>
             </a>
@@ -15,11 +15,11 @@
                 <span>Orders</span>
             </a>
         </div>
-        <div class="dashboard position-relative <?php if ($activeMenu == 'shopkeepers')
+        <div class="dashboard position-relative <?php if ($activeMenu == 'products')
                                                     echo 'active' ?>">
-            <a href="shopkeepers.php" class="d-flex flex-column justify-content-center align-items-center  ">
-                <i class="fa-solid fa-users"></i>
-                <span>Shopkeepers</span>
+            <a href="products.php" class="d-flex flex-column justify-content-center align-items-center  ">
+                <i class="fa-solid fa-boxes-packing"></i>
+                <span>Products</span>
             </a>
         </div>
         <div class="dashboard position-relative <?php if ($activeMenu == 'settings')

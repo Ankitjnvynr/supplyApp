@@ -10,9 +10,15 @@
     --clr4:#7A7A7A;
     --clr5:#D6FFE5;
 }
+.subheading{
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
 *{
     font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
 }
+
 
 body{
     background-color: rgb(60, 60, 60);
@@ -21,6 +27,12 @@ body{
     max-width: 390px;
     min-height: 100vh;
     background-color: var(--white);
+    margin: auto;
     /* background: rgb(235,255,242);
     background: linear-gradient(183deg, rgba(235,255,242,1) 0%, rgba(255,255,255,1) 35%, rgba(255,250,250,1) 100%); */
+}
+
+/* extanding bootstrap classes */
+.fs-7{
+    font-size: 0.8rem !important;
 }
