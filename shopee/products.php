@@ -88,9 +88,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
     <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered">
             <div class="modal-content">
-                <form action="" method="POST">
+                <form id="productForm" action="" method="POST">
+                    <input id="productKey" name="productKey" type="text" hidden>
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Product</h1>
+                        <h1 class="modal-title fs-5" id="productModalLabel">Add Product</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -123,13 +124,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" name="addProduct" class="btn btn-success">Add</button>
+                        <button type="submit" id="productFormBtn" name="addProduct" class="btn btn-success">Add</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <!-- =====================add product modal end======================] -->
+
     <div class=" main position-relative">
         <div class="position-sticky top-0 bg-white container-fluid pb-2" style="--bs-bg-opacity: .9;">
             <?php

@@ -14,10 +14,15 @@ while ($row = $result->fetch_assoc())
     <div class=" p-1 mt-2 text-muted ">
         <div class="row ">
             <div class="col-11">
-                <div class="d-flex">
-                    <div class="text-success fw-semibold"><?php echo $row['product_name'] ?><span
-                            class="fw-normal text-muted fs-7">
-                            (Stationary)</span> </div>
+                <div class="d-flex align-items-center">
+                    <div class="text-success fw-semibold"><?php echo $row['product_name'] ?></div>
+                    <div class="fw-normal text-muted fs-7">
+                        (
+                    </div>
+                    <div class="fw-normal text-muted fs-7"><?php echo $row['category'] ?></div>
+                    <div class="fw-normal text-muted fs-7">
+                        )
+                    </div>
                 </div>
                 <div class="row fs-7">
                     <div class="col">
@@ -30,12 +35,13 @@ while ($row = $result->fetch_assoc())
                     </div>
                     <div class="col">
                         <i class="fa-solid fa-cubes-stacked"></i>
-                        <?php echo $row['qty'] ?>
+                        <span><?php echo $row['qty'] ?></span>
                     </div>
                 </div>
             </div>
             <div class="col-1 fs-4 d-flex flex-column gap-2 px-1">
-                <i class="fa-solid fa-pen-to-square text-success"></i>
+                <i onclick="openUpdateModal(this,<?php echo $row['id'] ?>)"
+                    class="fa-solid fa-pen-to-square text-success"></i>
                 <i class="fa-solid fa-trash text-danger"></i>
             </div>
         </div>
