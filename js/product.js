@@ -90,6 +90,8 @@ const updateProductModal = new bootstrap.Modal(
 
 openUpdateModal = (e, productId) => {
   productForm.id = "updateProductForm"; // updaing the id of the form
+  $('#productModalLabel').html('Update Product')
+  $("#productFormBtn").html('Update');
 
   // getting the current data
   prodName =
@@ -134,6 +136,8 @@ $(document).ready(function () {
     if (prductform) {
       prductform.id = "productForm";
       $("#productFormBtn").attr("name", "addProduct");
+      $("#productFormBtn").html('Add');
+      $('#productModalLabel').html('Add Product')
       prductform.reset();
     }
   });
