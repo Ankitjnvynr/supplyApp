@@ -1,7 +1,10 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
+require_once '../partials/_db.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
     // Fetch values from form
+    $productKey = $_POST['productKey'];
     $product_name = $_POST['product_name'];
     $price = $_POST['price'];
     $qty = $_POST['qty'];
@@ -9,11 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
     $category = $_POST['category'];
 
     // Prepare SQL statement to update data in products table
-    $sql = "UPDATE products SET price = ?, qty = ?, brand = ?, category = ? WHERE product_name = ?";
+    $sql = "UPDATE products SET  product_name = ?, price = ?, qty = ?, brand = ?, category = ? WHERE id = ?";
 
     // Prepare and bind parameters
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("issss", $price, $qty, $brand, $category, $product_name);
+    $stmt->bind_param("sissss", $product_name, $price, $qty, $brand, $category, $productKey);
 
     try
     {

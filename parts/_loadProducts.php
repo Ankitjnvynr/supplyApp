@@ -5,12 +5,10 @@ require_once '../partials/_db.php';
 
 $sql = "SELECT * FROM `products`";
 $result = $conn->query($sql);
-while ($row = $result->fetch_assoc())
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc())
 {
-
-
     ?>
-
     <div class=" p-1 mt-2 text-muted ">
         <div class="row ">
             <div class="col-11">
@@ -47,6 +45,10 @@ while ($row = $result->fetch_assoc())
         </div>
     </div>
     <?php
+}
+}else{
+    echo '<div class="text-center text-muted"> No Products Found</div>';
+    echo '<div class="text-center  "> <button data-bs-toggle="modal" data-bs-target="#addProductModal"  class="btn btn-outline-secondary">Add New</button></div>';
 }
 
 ?>

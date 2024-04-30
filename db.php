@@ -14,7 +14,6 @@ $userSql = "CREATE TABLE IF NOT EXISTS users  (
     district VARCHAR(100),
     tehsil VARCHAR(100),
     city VARCHAR(100),
-    city VARCHAR(100),
     pic TEXT,
     pin_code TEXT,
     shop_name VARCHAR(255),
