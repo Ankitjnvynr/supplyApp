@@ -30,12 +30,13 @@ $(document).ready(function () {
             url: 'update_product.php', // Change this to the URL of your PHP script
             data: formData,
             success: function (response) {
-                document.getElementById('updateProductForm').id = productForm;
+                document.getElementById('updateProductForm').id = 'productForm';
                 // Handle successful response
                 console.log(response); // Log the response to the console
                 // Optionally, display a success message to the user
             },
             error: function (xhr, status, error) {
+                document.getElementById('updateProductForm').id = 'productForm';
                 // Handle errors
                 console.error(xhr.responseText); // Log the error response to the console
                 // Optionally, display an error message to the user
@@ -47,6 +48,7 @@ $(document).ready(function () {
 //getting the details to update the product
 const updateProductModal = new bootstrap.Modal(document.getElementById('addProductModal'));
 
+
 openUpdateModal = (e, productId) => {
     prodName = e.parentNode.parentNode.childNodes[1].childNodes[1].childNodes[1].innerHTML
     prodCat = e.parentNode.parentNode.childNodes[1].childNodes[1].childNodes[5].innerHTML
@@ -54,7 +56,7 @@ openUpdateModal = (e, productId) => {
     prodBrand = e.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[1].childNodes[3].innerHTML
     prodPrice = e.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[3].childNodes[3].innerHTML
     prodQty = e.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[5].childNodes[3].innerHTML
-    
+
     $('#productKey').val(productId);
     $('#product_name').val(prodName);
     $('#price').val(prodPrice);
@@ -71,6 +73,18 @@ openUpdateModal = (e, productId) => {
     // productForm
 }
 
+//event on modal close resetting the form and identifier
+$(document).ready(function () {
+    $("#addProductModal").on("hidden.bs.modal", function (e) {
+        // Your code to execute when the modal is closed
+        console.log("Modal closed!");
+        prductform = document.getElementById('updateProductForm')
+        if (prductform) {
+            prductform.id = 'productForm';
+            prductform.reset();
+        }
+    });
+});
 
 
 
