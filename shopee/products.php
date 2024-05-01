@@ -131,6 +131,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
         </div>
     </div>
     <!-- =====================add product modal end======================] -->
+    <!-- =====================update product modal====================== -->
+    <div class="modal fade" id="updateProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <form id="updateProductForm" action="" method="POST">
+                    <input id="productKey" name="productKey" type="text" hidden>
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="UproductModalLabel">Update Product</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="product_name" class="form-label-sm">Product Name</label>
+                            <input class="form-control form-control-sm" id="product_nameU" name="product_name"
+                                type="text" aria-label=".form-control-sm example" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="priceU" class="form-label-sm">Price(₹)</label>
+                            <input class="form-control form-control-sm" id="priceU" name="price" type="text"
+                                aria-label=".form-control-sm example" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="qtyU" class="form-label-sm">Stock</label>
+                            <input class="form-control form-control-sm" id="qtyU" name="qty" type="text"
+                                aria-label=".form-control-sm example" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="brandU" class="form-label-sm">Brand</label>
+                            <input class="form-control form-control-sm" id="brandU" name="brand" type="text"
+                                aria-label=".form-control-sm example" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="categoryU" class="form-label-sm">Category</label>
+                            <input class="form-control form-control-sm" id="categoryU" name="category" type="text"
+                                aria-label=".form-control-sm example" required>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="productFormBtn" name="addProduct" class="btn btn-success">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- =====================update product modal end================] -->
 
     <div class=" main position-relative">
         <div class="position-sticky top-0 bg-white container-fluid pb-2" style="--bs-bg-opacity: .9;">
