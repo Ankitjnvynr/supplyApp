@@ -72,21 +72,21 @@ const updateProductModal = new bootstrap.Modal(document.getElementById('updatePr
 
 
 openUpdateModal = (e, productId) => {
-  productForm.id = "updateProductForm"; // updaing the id of the form
-  $('#productModalLabel').html('Update Product')
-  $("#productFormBtn").html('Update');
+//   productForm.id = "updateProductForm"; // updaing the id of the form
+//   $('#productModalLabel').html('Update Product')
+//   $("#productFormBtn").html('Update');
 
   // getting the current data
   prodName =
     e.parentNode.parentNode.childNodes[1].childNodes[1].childNodes[1].innerHTML;
   prodNameE = e.parentNode.parentNode.childNodes[1].childNodes[1].childNodes[1];
 
-    $('#productKey').val(productId);
-    $('#product_nameU').val(prodName);
-    $('#priceU').val(prodPrice);
-    $('#qtyU').val(prodQty);
-    $('#brandU').val(prodBrand);
-    $('#categoryU').val(prodCat);
+    // $('#productKey').val(productId);
+    // $('#product_nameU').val(prodName);
+    // $('#priceU').val(prodPrice);
+    // $('#qtyU').val(prodQty);
+    // $('#brandU').val(prodBrand);
+    // $('#categoryU').val(prodCat);
 
   prodBrand =
     e.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[1]
@@ -97,13 +97,16 @@ openUpdateModal = (e, productId) => {
   prodQty =
     e.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[5]
       .childNodes[3].innerHTML;
+  prodCat =
+    e.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[5]
+      .childNodes[3].innerHTML;
 
-  $("#productKey").val(productId);
-  $("#product_name").val(prodName);
-  $("#price").val(prodPrice);
-  $("#qty").val(prodQty);
-  $("#brand").val(prodBrand);
-  $("#category").val(prodCat);
+  $("#productKeyU").val(productId);
+  $("#product_nameU").val(prodName);
+  $("#priceU").val(prodPrice);
+  $("#qtyU").val(prodQty);
+  $("#brandU").val(prodBrand);
+//   $("#categoryU").val(prodCat);
 
     // productForm.id = 'updateProductForm';
 
