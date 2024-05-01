@@ -24,45 +24,46 @@ runUpdate = (a, b, c, d, e) => {
     console.log("this is update form run");
     var formData = $(this).serialize(); // Serialize form data
     // Send the AJAX request
-    $.ajax({
-      type: "POST",
-      url: "../parts/_updateProduct.php", // Change this to the URL of your PHP script
-      data: formData,
-      success: function (response) {
-        updateProductModal.hide();
+      $.ajax({
+          type: "POST",
+          url: "../parts/_updateProduct.php", // Change this to the URL of your PHP script
+          data: formData,
+          success: function (response) {
+              updateProductModal.hide();
 
-        var queryParams = formData.split("&");
-        var parcedformData = {};
-        for (var i = 0; i < queryParams.length; i++) {
-          // Splitting each pair into key and value
-          var pair = queryParams[i].split("=");
-          // Check if key is not "productKey" and store key-value pairs in the formData object
-          if (pair[0] !== "productKey") {
-            parcedformData[decodeURIComponent(pair[0])] = decodeURIComponent(
-              pair[1]
-            );
+              var queryParams = formData.split("&");
+              var parcedformData = {};
+              for (var i = 0; i < queryParams.length; i++) {
+                  // Splitting each pair into key and value
+                  var pair = queryParams[i].split("=");
+                  // Check if key is not "productKey" and store key-value pairs in the formData object
+                  if (pair[0] !== "productKey") {
+                      parcedformData[decodeURIComponent(pair[0])] = decodeURIComponent(
+                          pair[1]
+                      );
+                  }
+              }
+
+              // Send the AJAX request
+              $.ajax({
+                  type: 'POST',
+                  url: 'update_product.php', // Change this to the URL of your PHP script
+                  data: formData,
+                  success: function (response) {
+                      // document.getElementById('updateProductForm').id = 'productForm';
+                      // Handle successful response
+                      console.log(response); // Log the response to the console
+                      // Optionally, display a success message to the user
+                  },
+                  error: function (xhr, status, error) {
+                      // document.getElementById('updateProductForm').id = 'productForm';
+                      // Handle errors
+                      console.error(xhr.responseText); // Log the error response to the console
+                      // Optionally, display an error message to the user
+                  }
+              });
           }
-        }
-
-        // Send the AJAX request
-        $.ajax({
-            type: 'POST',
-            url: 'update_product.php', // Change this to the URL of your PHP script
-            data: formData,
-            success: function (response) {
-                // document.getElementById('updateProductForm').id = 'productForm';
-                // Handle successful response
-                console.log(response); // Log the response to the console
-                // Optionally, display a success message to the user
-            },
-            error: function (xhr, status, error) {
-                // document.getElementById('updateProductForm').id = 'productForm';
-                // Handle errors
-                console.error(xhr.responseText); // Log the error response to the console
-                // Optionally, display an error message to the user
-            }
-        });
-    });
+      });
   });
 };
 
