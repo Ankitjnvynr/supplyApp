@@ -18,11 +18,31 @@ showNoti = (iconClass, msgType, msgBody) => {
 }
 
 // function to update the form data to db
-$(document).ready(function () {
-    $('#updateProductForm').submit(function (event) {
-        event.preventDefault();  // Prevent default form submission
+runUpdate = (a, b, c, d, e) => {
+  $("#updateProductForm").submit(function (event) {
+    event.preventDefault(); // Prevent default form submission
+    console.log("this is update form run");
+    var formData = $(this).serialize(); // Serialize form data
+    // Send the AJAX request
+    $.ajax({
+      type: "POST",
+      url: "../parts/_updateProduct.php", // Change this to the URL of your PHP script
+      data: formData,
+      success: function (response) {
+        updateProductModal.hide();
 
-        var formData = $(this).serialize();// Serialize form data
+        var queryParams = formData.split("&");
+        var parcedformData = {};
+        for (var i = 0; i < queryParams.length; i++) {
+          // Splitting each pair into key and value
+          var pair = queryParams[i].split("=");
+          // Check if key is not "productKey" and store key-value pairs in the formData object
+          if (pair[0] !== "productKey") {
+            parcedformData[decodeURIComponent(pair[0])] = decodeURIComponent(
+              pair[1]
+            );
+          }
+        }
 
         // Send the AJAX request
         $.ajax({
@@ -43,19 +63,22 @@ $(document).ready(function () {
             }
         });
     });
-});
+  });
+};
 
 //getting the details to update the product
 const updateProductModal = new bootstrap.Modal(document.getElementById('updateProductModal'));
 
 
 openUpdateModal = (e, productId) => {
-    prodName = e.parentNode.parentNode.childNodes[1].childNodes[1].childNodes[1].innerHTML
-    prodCat = e.parentNode.parentNode.childNodes[1].childNodes[1].childNodes[5].innerHTML
+  productForm.id = "updateProductForm"; // updaing the id of the form
+  $('#productModalLabel').html('Update Product')
+  $("#productFormBtn").html('Update');
 
-    prodBrand = e.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[1].childNodes[3].innerHTML
-    prodPrice = e.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[3].childNodes[3].innerHTML
-    prodQty = e.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[5].childNodes[3].innerHTML
+  // getting the current data
+  prodName =
+    e.parentNode.parentNode.childNodes[1].childNodes[1].childNodes[1].innerHTML;
+  prodNameE = e.parentNode.parentNode.childNodes[1].childNodes[1].childNodes[1];
 
     $('#productKey').val(productId);
     $('#product_nameU').val(prodName);
@@ -64,14 +87,31 @@ openUpdateModal = (e, productId) => {
     $('#brandU').val(prodBrand);
     $('#categoryU').val(prodCat);
 
+  prodBrand =
+    e.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[1]
+      .childNodes[3].innerHTML;
+  prodPrice =
+    e.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[3]
+      .childNodes[3].innerHTML;
+  prodQty =
+    e.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[5]
+      .childNodes[3].innerHTML;
 
-    console.log(prodName, prodCat, prodBrand, prodPrice, prodQty)
-    updateProductModal.show()
+  $("#productKey").val(productId);
+  $("#product_name").val(prodName);
+  $("#price").val(prodPrice);
+  $("#qty").val(prodQty);
+  $("#brand").val(prodBrand);
+  $("#category").val(prodCat);
 
     // productForm.id = 'updateProductForm';
 
-    // productForm
-}
+  // console.log(prodName, prodCat, prodBrand, prodPrice, prodQty)
+  updateProductModal.show();
+  runUpdate(prodNameE, prodCat, prodBrand, prodPrice, prodQty);
+
+  // productForm
+};
 
 //event on modal close resetting the form and identifier
 $(document).ready(function () {
