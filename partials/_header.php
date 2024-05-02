@@ -21,10 +21,18 @@
         logout
     </div>
     <div class="d-flex justify-content-between align-items-center position-sticky top-0">
-        <h6 class="text-success fw-bolder">
+        <h6 class="text-success fw-bolder d-flex align-items-center justify-content-center ">
             <?php
+            if(isset($submenu)){
+                echo '<a class="text-success" href="'.$activeMenu.'.php" >';
+            }
             echo ($activeMenu == 'dashboard') ? "Welcome: " . ucfirst($_SESSION['userName']) : ucfirst($activeMenu);
+            if(isset($submenu)){
+                echo '</a><span class="fs-4" >></span>'.$submenu;
+            }
             ?>
+            
+            
         </h6>
         <div class="d-flex gap-3 ">
             <!-- <a href="#"><i class="fa-solid fa-camera text-muted"></i></a> -->

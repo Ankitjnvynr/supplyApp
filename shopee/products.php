@@ -115,10 +115,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
                             <input class="form-control form-control-sm" id="brand" name="brand" type="text"
                                 aria-label=".form-control-sm example" required>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="category" class="form-label-sm">Category</label>
                             <input class="form-control form-control-sm" id="category" name="category" type="text"
                                 aria-label=".form-control-sm example" required>
+                        </div> -->
+                        <div class="mb-3">
+                            <select class="form-select form-select-sm " id="category" name="category"required
+                                aria-label="Small select example">
+                                
+                            </select>
                         </div>
 
                     </div>
@@ -163,10 +169,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
                             <input class="form-control form-control-sm" id="brandU" name="brand" type="text"
                                 aria-label=".form-control-sm example" required>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="categoryU" class="form-label-sm">Category</label>
                             <input class="form-control form-control-sm" id="categoryU" name="category" type="text"
                                 aria-label=".form-control-sm example" required>
+                        </div> -->
+                        <div class="mb-3">
+                            <select class="form-select form-select-sm " id="categoryU" name="category" required
+                                aria-label="Small select example">
+                                
+                            </select>
                         </div>
 
                     </div>
@@ -192,15 +204,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
                 <h6 class="fs-6 fw-bold bg-success text-white rounded-pill px-2 m-0   text-center">5</h6>
                 <span class="fs-7 m-0 p-0">Total</span>
             </div>
-            <div class="rounded rounded-pill bg-secondary-subtle d-flex align-items-center gap-2 px-2">
+            <div class="rounded rounded-pill bg-secondary-subtle d-flex align-items-center gap-2 px-1">
                 <select class="form-select form-select-sm rounded rounded-pill bg-secondary-subtle"
                     aria-label="Small select example">
-                    <option selected>Category</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value="" selected>Category</option>
+                    <?php
+                    $catSql = "SELECT * FROM `categories`";
+                    $result = $conn->query($catSql);
+                    while ($row = $result->fetch_assoc())
+                    {
+                        echo '<option value="' . $row['cat_name'] . '" >' . $row['cat_name'] . '</option>';
+                    }
+                    ?>
                 </select>
-                <i data-bs-toggle="modal" class="fa-solid fa-plus  text-white p-1 px-3 rounded-pill bg-secondary"></i>
+                <a href="categories.php">
+                    <i data-bs-toggle="modal"
+                        class="fa-solid fa-plus  text-white p-1 px-3 rounded-pill bg-secondary"></i>
+                </a>
             </div>
             <i data-bs-toggle="modal" data-bs-target="#addProductModal"
                 class="fa-solid fa-circle-plus fs-1 text-success"></i>

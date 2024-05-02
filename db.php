@@ -51,11 +51,14 @@ runsql($conn, $products);
 //category of the products
 $categories = "CREATE TABLE IF NOT EXISTS categories(
     id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    cat_name VARCHAR(10) NOT NULL,
+    cat_name VARCHAR(100) NOT NULL UNIQUE,
     dt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
 
 runsql($conn, $categories);
+
+
+
 
 // Close the database connection
 $conn->close();
