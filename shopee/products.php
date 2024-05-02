@@ -132,7 +132,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
     </div>
     <!-- =====================add product modal end======================] -->
     <!-- =====================update product modal====================== -->
-    <div class="modal fade" id="updateProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="updateProductModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered">
             <div class="modal-content">
                 <form id="updateProductForm" action="" method="POST">
@@ -171,7 +172,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" id="productFormBtn" name="addProduct" class="btn btn-success">Update</button>
+                        <button type="submit" id="productFormBtn" name="addProduct"
+                            class="btn btn-success">Update</button>
                     </div>
                 </form>
             </div>
@@ -186,7 +188,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
             ?>
         </div>
         <div class="container d-flex align-items-center justify-content-between text-muted m-0">
-            <h6 class="fs-5">Total Products : 5</h6>
+            <div class="d-flex flex-column gap-0">
+                <h6 class="fs-6 fw-bold bg-success text-white rounded-pill px-2 m-0   text-center">5</h6>
+                <span class="fs-7 m-0 p-0">Total</span>
+            </div>
+            <div class="rounded rounded-pill bg-secondary-subtle d-flex align-items-center gap-2 px-2">
+                <select class="form-select form-select-sm rounded rounded-pill bg-secondary-subtle"
+                    aria-label="Small select example">
+                    <option selected>Category</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <i data-bs-toggle="modal" class="fa-solid fa-circle-plus fs-2 text-white p-1 px-3 rounded-pill bg-secondary"></i>
+            </div>
             <i data-bs-toggle="modal" data-bs-target="#addProductModal"
                 class="fa-solid fa-circle-plus fs-1 text-success"></i>
         </div>
