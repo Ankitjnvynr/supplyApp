@@ -200,7 +200,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
-                <i data-bs-toggle="modal" class="fa-solid fa-circle-plus fs-2 text-white p-1 px-3 rounded-pill bg-secondary"></i>
+                <i data-bs-toggle="modal" class="fa-solid fa-plus  text-white p-1 px-3 rounded-pill bg-secondary"></i>
             </div>
             <i data-bs-toggle="modal" data-bs-target="#addProductModal"
                 class="fa-solid fa-circle-plus fs-1 text-success"></i>
