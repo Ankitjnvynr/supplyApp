@@ -48,7 +48,7 @@ runUpdate = (a, b, c, d, e) => {
         // Send the AJAX request
         $.ajax({
           type: 'POST',
-          url: 'update_product.php', // Change this to the URL of your PHP script
+          url: '../parts/_updateProduct.php', // Change this to the URL of your PHP script
           data: formData,
           success: function (response) {
             // document.getElementById('updateProductForm').id = 'productForm';
@@ -112,6 +112,7 @@ openUpdateModal = (e, productId) => {
   for (var i = 0; i < categoryU.options.length; i++) {
     if (categoryU.options[i] === prodCat) {
       categoryU.options[i].selected = true;
+      console.log(categoryU)
     }
   }
   //   $("#categoryU").val(prodCat);
@@ -138,6 +139,7 @@ $(document).ready(function () {
   });
 
   loadInfo('#category', '../parts/_loadCategory.php');
+  loadInfo('#filterCat', '../parts/_loadCategory.php');
   loadInfo('#categoryU', '../parts/_loadCategory.php');
 });
 

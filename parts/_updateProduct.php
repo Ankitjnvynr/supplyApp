@@ -23,7 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         // Execute the statement
         if ($stmt->execute() === TRUE)
         {
-            echo "Record updated successfully";
+            // $stmt->execute();
+            $affectedRows = $stmt->affected_rows;
+            echo "Affected rows: " . $affectedRows;
         } else
         {
             echo "Error: " . $sql . "<br>" . $conn->error;

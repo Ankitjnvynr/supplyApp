@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
         <div class="modal-dialog modal-sm modal-dialog-centered">
             <div class="modal-content">
                 <form id="productForm" action="" method="POST">
-                    <input id="productKey" name="productKey" type="text" hidden>
+                    <input id="productKey" name="productKey" type="text" >
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="productModalLabel">Add Product</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -205,17 +205,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
                 <span class="fs-7 m-0 p-0">Total</span>
             </div>
             <div class="rounded rounded-pill bg-secondary-subtle d-flex align-items-center gap-2 px-1">
-                <select class="form-select form-select-sm rounded rounded-pill bg-secondary-subtle"
+                <select id="filterCat" class="form-select form-select-sm rounded rounded-pill bg-secondary-subtle"
                     aria-label="Small select example">
                     <option value="" selected>Category</option>
-                    <?php
-                    $catSql = "SELECT * FROM `categories`";
-                    $result = $conn->query($catSql);
-                    while ($row = $result->fetch_assoc())
-                    {
-                        echo '<option value="' . $row['cat_name'] . '" >' . $row['cat_name'] . '</option>';
-                    }
-                    ?>
+                    
                 </select>
                 <a href="categories.php">
                     <i data-bs-toggle="modal"
