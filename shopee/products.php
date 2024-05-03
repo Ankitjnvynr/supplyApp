@@ -64,6 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/app.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/product.css">
 </head>
 
 <body>
@@ -201,7 +202,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
         </div>
         <div class="container d-flex align-items-center justify-content-between text-muted m-0">
             <div class="d-flex flex-column gap-0">
-                <h6 class="fs-6 fw-bold bg-success text-white rounded-pill px-2 m-0   text-center">5</h6>
+                <h6 id="productCount" class="fs-6 fw-bold bg-success text-white rounded-pill px-2 m-0   text-center">5</h6>
                 <span class="fs-7 m-0 p-0">Total</span>
             </div>
             <div class="rounded rounded-pill bg-secondary-subtle d-flex align-items-center gap-2 px-1">

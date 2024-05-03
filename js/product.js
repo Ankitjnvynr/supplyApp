@@ -148,6 +148,7 @@ $(document).ready(function () {
   loadInfo('#category', '../parts/_loadCategory.php');
   loadInfo('#filterCat', '../parts/_loadCategory.php');
   loadInfo('#categoryU', '../parts/_loadCategory.php');
+  loadInfo("#productCount", "../parts/_productCount.php");
 });
 
 
