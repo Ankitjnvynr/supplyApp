@@ -21,11 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     try
     {
         // Execute the statement
-        if ($stmt->execute() === TRUE)
+        if ($stmt->execute())
         {
             // $stmt->execute();
             $affectedRows = $stmt->affected_rows;
-            echo "Affected rows: " . $affectedRows;
+            echo $affectedRows;
         } else
         {
             echo "Error: " . $sql . "<br>" . $conn->error;

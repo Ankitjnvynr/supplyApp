@@ -54,12 +54,7 @@ runUpdate = (productID) => {
             // document.getElementById('updateProductForm').id = 'productForm';
             // Handle successful response
             console.log(response); // Log the response to the console
-            // Optionally, display a success message to the user
-
-            // $("pname" + productID).html();
-            // console.log($("pname" + f));
-
-            // $("pcat" + productID).html(b);
+            
             pairs = formData.split("&");
             key_values = {};
             pairs.forEach((pair) => {
