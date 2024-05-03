@@ -18,7 +18,7 @@ if ($result->num_rows > 0) {
                     <div class="fw-normal text-muted fs-7">
                         (
                     </div>
-                    <div class="fw-normal text-muted fs-7"><?php echo $row['category'] ?></div>
+                    <div id="pcat<?php echo $pid; ?>" class="fw-normal text-muted fs-7"><?php echo $row['category'] ?></div>
                     <div class="fw-normal text-muted fs-7">
                         )
                     </div>
@@ -26,15 +26,15 @@ if ($result->num_rows > 0) {
                 <div class="row fs-7">
                     <div class="col">
                         <i class="fa-solid fa-campground"></i>
-                        <span><?php echo $row['brand'] ?></span>
+                        <span id="pbrand<?php echo $pid; ?>" ><?php echo $row['brand'] ?></span>
                     </div>
                     <div class="col fw-semibold">
                         <i class="fa-solid fa-indian-rupee-sign"></i>
-                        <span><?php echo $row['price'] ?></span>
+                        <span id="pprice<?php echo $pid; ?>" ><?php echo $row['price'] ?></span>
                     </div>
                     <div class="col">
                         <i class="fa-solid fa-cubes-stacked"></i>
-                        <span><?php echo $row['qty'] ?></span>
+                        <span id="pqty<?php echo $pid; ?>" ><?php echo $row['qty'] ?></span>
                     </div>
                 </div>
             </div>

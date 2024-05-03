@@ -19,7 +19,7 @@ showNoti = (iconClass, msgType, msgBody) => {
 }
 
 // function to update the form data to db
-runUpdate = (a, b, c, d, e) => {
+runUpdate = (productID) => {
   $("#updateProductForm").submit(function (event) {
     event.preventDefault(); // Prevent default form submission
     console.log("this is update form run");
@@ -47,30 +47,48 @@ runUpdate = (a, b, c, d, e) => {
 
         // Send the AJAX request
         $.ajax({
-          type: 'POST',
-          url: '../parts/_updateProduct.php', // Change this to the URL of your PHP script
+          type: "POST",
+          url: "../parts/_updateProduct.php", // Change this to the URL of your PHP script
           data: formData,
           success: function (response) {
             // document.getElementById('updateProductForm').id = 'productForm';
             // Handle successful response
             console.log(response); // Log the response to the console
             // Optionally, display a success message to the user
+
+            // $("pname" + productID).html();
+            // console.log($("pname" + f));
+
+            // $("pcat" + productID).html(b);
+            pairs = formData.split("&");
+            key_values = {};
+            pairs.forEach((pair) => {
+              const [key, value] = pair.split("=");
+              key_values[key] = decodeURIComponent(value);
+            });
+            $("#pname" + productID).html(key_values.product_name);
+            $("#pcat" + productID).html(key_values.category);
+            $("#pbrand" + productID).html(key_values.brand);
+            $("#pprice" + productID).html(key_values.price);
+            $("#pqty" + productID).html(key_values.qty);
+            // console.table(key_values);
           },
           error: function (xhr, status, error) {
             // document.getElementById('updateProductForm').id = 'productForm';
             // Handle errors
             console.error(xhr.responseText); // Log the error response to the console
             // Optionally, display an error message to the user
-          }
+          },
         });
-      }
+      },
     });
   });
 };
 
 //getting the details to update the product
-const updateProductModal = new bootstrap.Modal(document.getElementById('updateProductModal'));
-
+const updateProductModal = new bootstrap.Modal(
+  document.getElementById("updateProductModal")
+);
 
 openUpdateModal = (e, productId) => {
   //   productForm.id = "updateProductForm"; // updaing the id of the form
@@ -80,14 +98,6 @@ openUpdateModal = (e, productId) => {
   // getting the current data
   prodName =
     e.parentNode.parentNode.childNodes[1].childNodes[1].childNodes[1].innerHTML;
-  prodNameE = e.parentNode.parentNode.childNodes[1].childNodes[1].childNodes[1];
-
-  // $('#productKey').val(productId);
-  // $('#product_nameU').val(prodName);
-  // $('#priceU').val(prodPrice);
-  // $('#qtyU').val(prodQty);
-  // $('#brandU').val(prodBrand);
-  // $('#categoryU').val(prodCat);
 
   prodBrand =
     e.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[1]
@@ -107,21 +117,18 @@ openUpdateModal = (e, productId) => {
   $("#priceU").val(prodPrice);
   $("#qtyU").val(prodQty);
   $("#brandU").val(prodBrand);
+  $("#productKey").val(productId);
 
-  var categoryU = document.getElementById('categoryU')
+  var categoryU = document.getElementById("categoryU");
   for (var i = 0; i < categoryU.options.length; i++) {
     if (categoryU.options[i] === prodCat) {
       categoryU.options[i].selected = true;
-      console.log(categoryU)
+      console.log(categoryU);
     }
   }
-  //   $("#categoryU").val(prodCat);
 
-  // productForm.id = 'updateProductForm';
-
-  // console.log(prodName, prodCat, prodBrand, prodPrice, prodQty)
   updateProductModal.show();
-  runUpdate(prodNameE, prodCat, prodBrand, prodPrice, prodQty);
+  runUpdate(productId);
 
   // productForm
 };
