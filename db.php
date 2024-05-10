@@ -57,8 +57,5 @@ $categories = "CREATE TABLE IF NOT EXISTS categories(
 
 runsql($conn, $categories);
 
-
-
-
 // Close the database connection
 $conn->close();

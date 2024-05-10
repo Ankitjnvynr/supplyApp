@@ -70,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
 <body>
     <!-- =========toast notification============ -->
 
+
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="ErrorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
@@ -192,8 +193,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
         </div>
     </div>
     <!-- =====================update product modal end================] -->
-
-
+    <!-- ===============Delete product modal ========= -->
+    
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-danger" id="DeleteModalLabel">Deleting ...</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   Are You Sure to Delete
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button onclick="" type="submit" class="btn btn-danger">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ===============Delete product modal end ========= -->
 
     <div class=" main position-relative">
         <div class="position-sticky top-0 bg-white container-fluid pb-2" style="--bs-bg-opacity: .9;">

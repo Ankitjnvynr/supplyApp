@@ -48,3 +48,4 @@
         <input class="search-input m-0 p-0  bg-none px-2" type="text" placeholder="search....">
     </div>
 </div>
+
