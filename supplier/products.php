@@ -194,20 +194,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
     </div>
     <!-- =====================update product modal end================] -->
     <!-- ===============Delete product modal ========= -->
-    
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 text-danger" id="DeleteModalLabel">Deleting ...</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Deleting ...</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                   Are You Sure to Delete
+                    Are you sure ?
+                    <input type="text" id="deleteProductId" hidden>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button onclick="" type="submit" class="btn btn-danger">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" onclick="deleteProduct()" class="btn btn-danger">Yes, Delete</button>
                 </div>
             </div>
         </div>
@@ -227,7 +228,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
                 <span class="fs-7 m-0 p-0">Total</span>
             </div>
             <div class="rounded rounded-pill bg-secondary-subtle d-flex align-items-center gap-2 px-1">
-                <select id="filterCat" class="form-select form-select-sm rounded rounded-pill bg-secondary-subtle"
+                <select id="filterCat" onchange="loadProduct()" class="form-select form-select-sm rounded rounded-pill bg-secondary-subtle"
                     aria-label="Small select example">
                     <option value="" selected>Category</option>
 

@@ -193,8 +193,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
     </div>
     <!-- =====================update product modal end================] -->
 
-
-
     <div class=" main position-relative">
         <div class="position-sticky top-0 bg-white container-fluid pb-2" style="--bs-bg-opacity: .9;">
             <?php

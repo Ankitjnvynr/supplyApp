@@ -1,7 +1,33 @@
 let loadInfo = (target, page) => {
   $(target).load(page)
 }
-loadInfo('#porductBox', '../parts/_loadProducts.php');
+// function to load the product
+loadProduct = () => {
+  fltrs = {
+    serachbox: $('#searchBox').val(),
+    category: $('#filterCat').val(),
+    start: '0',
+    limit: '12',
+  }
+
+  $.ajax({
+    url: '../parts/_loadProducts.php',
+    type: 'POST',
+    data: fltrs,
+    success: function (response) {
+      // console.log(response)
+      $('#porductBox').html(response)
+    }
+  })
+}
+loadProduct()
+
+$(document).ready(function () {
+  $("#searchBox").on("input", function () {
+    loadProduct()
+  });
+});
+// loadInfo('#porductBox', '../parts/_loadProducts.php');
 
 
 const ToastBody = document.getElementById('ToastBody')
@@ -54,7 +80,7 @@ runUpdate = (productID) => {
             // document.getElementById('updateProductForm').id = 'productForm';
             // Handle successful response
             console.log(response); // Log the response to the console
-            
+
             pairs = formData.split("&");
             key_values = {};
             pairs.forEach((pair) => {
@@ -145,6 +171,33 @@ $(document).ready(function () {
   loadInfo('#categoryU', '../parts/_loadCategory.php');
   loadInfo("#productCount", "../parts/_productCount.php");
 });
+
+
+// deleting the product
+const deleteModal = new bootstrap.Modal('#deleteModal')
+openDelModal = (pId, e) => {
+  deleteModal.show()
+
+  $('#deleteProductId').val(pId);
+  deleteProduct = () => {
+    console.log('deleting')
+    $.ajax({
+      url: '../parts/_delete_Product.php',
+      type: 'POST',
+      data: { product: $('#deleteProductId').val() },
+      success: function (response) {
+        if (response == "1") {
+          deleteModal.hide()
+          fullitem = e.parentNode.parentNode.parentNode;
+          fullitem.style.display = 'none';
+          loadInfo("#productCount", "../parts/_productCount.php");
+        }
+        console.log(response)
+      }
+    })
+  }
+}
+
 
 
 

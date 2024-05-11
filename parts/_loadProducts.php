@@ -3,7 +3,48 @@
 session_start();
 require_once '../partials/_db.php';
 
-$sql = "SELECT * FROM `products` ORDER BY id DESC";
+$searchbox = isset($_POST['serachbox']) ? ($_POST['serachbox']) : ''; // Sanitize search term
+$category = isset($_POST['category']) ? $_POST['category'] : ''; // Handle empty category
+$start = isset($_POST['start']) ? (int) $_POST['start'] : 0; // Ensure integer for pagination
+$limit = isset($_POST['limit']) ? (int) $_POST['limit'] : 10; // Set default and ensure integer
+
+$whereClause = ''; // Build WHERE clause dynamically
+
+// Construct WHERE clause based on filters
+if (!empty($searchbox))
+{
+    $searchTerms = explode(' ', $searchbox); // Split search terms for potential LIKE operator
+    $whereClause .= ' WHERE (';
+    $first = true;
+    foreach ($searchTerms as $term)
+    {
+        if (!$first)
+        {
+            $whereClause .= ' OR ';
+        }
+        $whereClause .= "product_name LIKE '%$term%' OR category LIKE '%$term%'";
+        $first = false;
+    }
+    $whereClause .= ')';
+}
+
+if (!empty($category))
+{
+    if (!empty($whereClause))
+    {
+        $whereClause .= ' AND ';
+    } else
+    {
+        $whereClause .= ' WHERE ';
+    }
+    $whereClause .= "category = '$category'";
+}
+
+// Build the final SQL query
+$sql = "SELECT * FROM `products`";
+$sql .= $whereClause;
+$sql .= " ORDER BY id DESC LIMIT $start, $limit";  // Apply pagination
+
 $result = $conn->query($sql);
 if ($result->num_rows > 0)
 {
@@ -11,7 +52,7 @@ if ($result->num_rows > 0)
     {
         $pid = $row['id'];
         ?>
-        <div class=" p-1 mt-2 text-muted ">
+        <div class="productitem p-1 mt-2 text-muted ">
             <div class="row ">
                 <div class="col-11">
                     <div class="d-flex align-items-center">
@@ -47,7 +88,7 @@ if ($result->num_rows > 0)
                     <div class="col-1 fs-4 d-flex flex-column gap-2 px-1">
                         <i onclick="openUpdateModal(this,<?php echo $row['id'] ?>)"
                             class="fa-solid fa-pen-to-square text-success"></i>
-                        <i class="fa-solid fa-trash text-danger"></i>
+                        <i onclick="openDelModal(<?php echo $pid; ?>, this)" class="fa-solid fa-trash text-danger"></i>
                     </div>
                     <?php
                 }
@@ -59,7 +100,7 @@ if ($result->num_rows > 0)
 } else
 {
     echo '<div class="text-center text-muted"> No Products Found</div>';
-    echo '<div class="text-center  "> <button data-bs-toggle="modal" data-bs-target="#addProductModal"  class="btn btn-outline-secondary">Add New</button></div>';
+    
 }
 
 ?>
