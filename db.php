@@ -20,11 +20,11 @@ $userSql = "CREATE TABLE IF NOT EXISTS users  (
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
 
-function runsql($conn, $sql)
+function runsql($conn, $sql, $name = null)
 {
     if ($conn->query($sql) === TRUE)
     {
-        echo "Table users created successfully <br>";
+        echo $name . " Table  created successfully <br>";
         // var_dump($sql);
     } else
     {
@@ -57,5 +57,29 @@ $categories = "CREATE TABLE IF NOT EXISTS categories(
 
 runsql($conn, $categories);
 
+//creating orders table
+$orders = "CREATE TABLE IF NOT EXISTS orders(
+    id INT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_id VARCHAR(100) NOT NULL,
+    supplier_id VARCHAR(100) NOT NULL,
+    shopee_id VARCHAR(100) NOT NULL,
+    dt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)";
+
+
+runsql($conn, $orders);
+
+$orderItems = "CREATE TABLE  order_items (
+    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    shopee_id VARCHAR(100) NOT NULL,
+    product_name VARCHAR(255) NOT NULL,
+    type VARCHAR(100),
+    brand VARCHAR(100),
+    qty INT(11),
+    subtotal DECIMAL(10, 2)
+
+)";
+
+runsql($conn, $orderItems,"Order_items");
 // Close the database connection
 $conn->close();

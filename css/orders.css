@@ -1,0 +1,25 @@
+.orderBox {
+  border-radius: 17px;
+  background: linear-gradient(145deg, #ffffff, #f3fff5);
+  box-shadow: 6px 6px 12px #e8e8e8, -6px -6px 12px #ffffff;
+}
+.flex-item-btn {
+  flex: 1 0 100px !important;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: x-small !important;
+}
+
+th,
+td {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+th {
+  background-color: var(--clr5);
+}
