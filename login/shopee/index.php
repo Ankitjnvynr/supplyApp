@@ -1,10 +1,5 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
-require '../../phpmailer/Exception.php';
-require '../../phpmailer/PHPMailer.php';
-require '../../phpmailer/SMTP.php';
 session_start();
 
 if (isset($_SESSION['loggedin']))

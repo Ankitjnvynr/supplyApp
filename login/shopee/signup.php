@@ -3,12 +3,9 @@
 
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 require_once '../../partials/_db.php';
 
-$mail = new PHPMailer(true);
+
 $emailSend = false;
 
 // Function to generate OTP
@@ -38,29 +35,10 @@ if (isset($_POST['userEmail']) && isset($_POST['Next']))
         if ($nums > 0)
         {
             $alreadyMsg = "Email already Exist";
+            echo '<script>var wantToSendOTP = false;</script>';
         } else
         {
-            // $mail->isSMTP();
-            // $mail->Host = 'smtp-mail.outlook.com';
-            // $mail->SMTPAuth = true;
-            // $mail->Username = 'ankitbkana@outlook.com';
-            // $mail->Password = 'ankit1558';
-            // $mail->SMTPSecure = 'tls';
-            // $mail->Port = 587;
-
-            // $mail->setFrom('ankitbkana@outlook.com', 'Delever Goods');
-            // $mail->addAddress($_SESSION['userEmail'], 'Recipient Name');
-
-            // $mail->Subject = 'OTP Varification';
-            // $mail->Body = 'Your 6 digit varification code is ' . $_SESSION['otp'];
-
-            // //sendig email by try catch 
-            // try {
-            //     $mail->send();
-            //     $emailSend = 'OTP sent to <span class="text-success">' . $_SESSION['userEmail'] . '</span>';
-            // } catch (Exception $e) {
-            //     echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-            // }
+            echo '<script>var wantToSendOTP = true;</script>';
             $emailAdd = $_SESSION['userEmail'];
             $otp = $_SESSION['otp'];
 

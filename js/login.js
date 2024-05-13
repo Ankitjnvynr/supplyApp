@@ -1,4 +1,8 @@
 
+
+// Fetch the form
+const form = document.querySelector('.needs-validation');
+
 // Initialize EmailJS with your user ID
 emailjs.init("y6h-t_BnDBEgh4v-k");
 // Function to send verification email
@@ -7,49 +11,51 @@ function sendVerificationEmail(email, otp) {
         to: email,
         from: "ankitbkana@outlook.com",
         subject: "Verification Code",
-        text: "Your OTP: " + otp
+        otp: "Your OTP: " + otp
     }).then(function (response) {
         console.log("Email sent successfully", response);
+        form.submit()
     }, function (error) {
         console.error("Email sending failed", error);
     });
 }
 
-// geeratng otp 
+// Function to generate OTP
 function generateOTP() {
-    // Declare a string to store the OTP
-    let otp = "";
-
-    // Loop to generate 6 random digits
-    for (let i = 0; i < 6; i++) {
-        // Generate a random number between 0 and 9
-        const digit = Math.floor(Math.random() * 10);
-        // Append the digit as a string to the OTP
-        otp += digit.toString();
-    }
-
-    // Return the generated 6-digit OTP
-    return otp;
+    return new Promise(function (resolve, reject) {
+        // Generate OTP code here
+        const otp = Math.floor(100000 + Math.random() * 900000);
+        if (otp) {
+            resolve(otp); // Resolve the promise with OTP
+        } else {
+            reject(new Error('Failed to generate OTP')); // Reject the promise if OTP generation fails
+        }
+    });
 }
 
-// Fetch the form
-const form = document.querySelector('.needs-validation');
+
 
 // Add event listener for form submission
 form.addEventListener('submit', function (event) {
+    event.preventDefault();
     if (!form.checkValidity()) {
-        event.preventDefault();
         event.stopPropagation();
     } else {
         // Form is valid, proceed with sending email
         const userEmail = document.getElementById('userEmail').value;
-        const userOtp = generateOTP(); // Assume you have a function to generate OTP
-        sendVerificationEmail(userEmail, userOtp);
-        // Proceed with form submission
+        generateOTP().then(async function (userOtp) {
+            await sendVerificationEmail(userEmail, userOtp);
+            // Proceed with form submission
+        }).catch(function (error) {
+            console.error('Error generating OTP:', error);
+        });
     }
 
     form.classList.add('was-validated');
 }, false);
+
+
+
 
 
 (() => {
