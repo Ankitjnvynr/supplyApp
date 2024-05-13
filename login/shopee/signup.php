@@ -1,7 +1,5 @@
 
-<script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script>    
+
 
 <?php
 
@@ -66,27 +64,6 @@ if (isset($_POST['userEmail']) && isset($_POST['Next']))
             $emailAdd = $_SESSION['userEmail'];
             $otp = $_SESSION['otp'];
 
-            echo '
-            <script>
-            emailjs.init("y6h-t_BnDBEgh4v-k");
-            document.addEventListener("DOMContentLoaded", (event) => {
-            console.log("DOM fully loaded and parsed");
-
-                    emailjs.send("service_0hj770c", "template_n3ebbni", {
-                        to: "' . $emailAdd . '",
-                        from: "ankitbkana@outlook.com",
-                        subject: "Varification Code",
-                        text: "OTP",
-                        otp: "' . $otp . '"
-                    })
-                        .then(function (response) {
-                            console.log("Email sent successfully", response);
-                        }, function (error) {
-                            console.error("Email sending failed", error);
-                        });
-                        });
-            </script>
-            ';
             $step1 = false;
             $step2 = true;
         }
@@ -205,28 +182,3 @@ if ($emailSend)
                 </script>`;
 ?>
 
-<script>
-    (() => {
-        'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        const forms = document.querySelectorAll('.needs-validation')
-
-        // Loop over them and prevent submission
-        Array.from(forms).forEach(form => {
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                    // var button = form.querySelector('button[type="submit"]');
-                    // button.innerHTML = `
-                    //     <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                    // <span role="status">Sending OTP ...</span>
-                    //     `;
-                }
-
-                form.classList.add('was-validated')
-            }, false)
-        })
-    })()
-</script>
