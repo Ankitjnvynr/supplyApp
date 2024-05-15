@@ -1,6 +1,3 @@
-
-
-
 <?php
 
 require_once '../../partials/_db.php';
@@ -14,39 +11,39 @@ function generateOTP()
     return rand(100000, 999999);
 }
 
-$step1 = true;
-$step2 = false;
+$step1 = false;
+$step2 = true;
 
 $userOtpMsg = false;
 $userPwdMsg = false;
 $emailSend;
 
-if (isset($_POST['userEmail']) && isset($_POST['Next']))
-{
-    $userEmail = $_POST['userEmail'];
-    $_SESSION['userEmail'] = $userEmail;
-    // Generate and store OTP in session
-    $_SESSION['otp'] = generateOTP();
-    $sql = "SELECT email FROM `users` WHERE email = '$userEmail' ";
-    $res = $conn->query($sql);
-    if ($res)
-    {
-        $nums = $res->num_rows;
-        if ($nums > 0)
-        {
-            $alreadyMsg = "Email already Exist";
-            echo '<script>var wantToSendOTP = false;</script>';
-        } else
-        {
-            echo '<script>var wantToSendOTP = true;</script>';
-            $emailAdd = $_SESSION['userEmail'];
-            $otp = $_SESSION['otp'];
+// if (isset($_POST['userEmail']) && isset($_POST['Next']))
+// {
+//     $userEmail = $_POST['userEmail'];
+//     $_SESSION['userEmail'] = $userEmail;
+//     // Generate and store OTP in session
+//     $_SESSION['otp'] = generateOTP();
+//     $sql = "SELECT email FROM `users` WHERE email = '$userEmail' ";
+//     $res = $conn->query($sql);
+//     if ($res)
+//     {
+//         $nums = $res->num_rows;
+//         if ($nums > 0)
+//         {
+//             $alreadyMsg = "Email already Exist";
+//             echo '<script>var wantToSendOTP = false;</script>';
+//         } else
+//         {
+//             echo '<script>var wantToSendOTP = true;</script>';
+//             $emailAdd = $_SESSION['userEmail'];
+//             $otp = $_SESSION['otp'];
 
-            $step1 = false;
-            $step2 = true;
-        }
-    }
-}
+//             $step1 = false;
+//             $step2 = true;
+//         }
+//     }
+// }
 
 if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && isset($_POST['userOtp']) && isset($_POST['Signup']))
 {
@@ -98,28 +95,37 @@ if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && iss
 }
 ?>
 
-<form class="shadow p-3 rounded needs-validation" novalidate method="POST" action="">
+<form id="emailForm" class="shadow p-3 rounded needs-validation" novalidate method="POST" action="">
     <div class="text-center mb-3">
         <h4 class="text-success">Sign Up</h4>
     </div>
-    <div class="mb-3" <?php echo $step1 ? '' : 'hidden' ?>>
+    <div class="mb-3">
         <label for="userEmail" class="form-label">Email address</label>
         <input autocomplete="false" aria-autocomplete="false" type="email" class="form-control" id="userEmail"
             name="userEmail" aria-describedby="emailHelp"
             value="<?php echo isset($_POST['userEmail']) ? $_POST['userEmail'] : '' ?>" required>
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         <div class="text-danger fs-6">
-            <?php
-            if (isset($alreadyMsg))
-            {
-                echo $alreadyMsg;
-            }
-            ?>
+
         </div>
         <div class="invalid-feedback">
             Please enter a valid email.
         </div>
     </div>
+    <div class="text-center">
+        <button type="submit" name="Next" class="btn btn-success text-center" fdprocessedid="vw48xs"
+            style="width: 100%;">Next -></button>
+    </div>
+    <p class="m-0 mt-3">Already an Account ? <a class="text-success fw-bold p-0 m-0" href="../supplier/">LogIn </a></p>
+</form>
+
+
+
+<form class="shadow p-3 rounded needs-validation" novalidate method="POST" action="" hidden>
+    <div class="text-center mb-3">
+        <h4 class="text-success">Sign Up</h4>
+    </div>
+
     <div class="my-2 text-muted fs-6" <?php echo $step2 ? '' : 'hidden' ?>>
         <?php
         echo $emailSend;
@@ -146,8 +152,9 @@ if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && iss
     </div>
 
     <div class="text-center">
-        <button id="user<?php echo $step1 ? 'Next' : 'Signup' ?>" type="submit" name="<?php echo $step1 ? 'Next' : 'Signup' ?>" class="btn btn-success text-center"
-            fdprocessedid="vw48xs" style="width: 100%;"><?php echo $step1 ? 'Next ->' : 'Signup' ?></button>
+        <button id="user<?php echo $step1 ? 'Next' : 'Signup' ?>" type="submit"
+            name="<?php echo $step1 ? 'Next' : 'Signup' ?>" class="btn btn-success text-center" fdprocessedid="vw48xs"
+            style="width: 100%;"><?php echo $step1 ? 'Next ->' : 'Signup' ?></button>
     </div>
     <p class="m-0 mt-3">Already an Account ? <a class="text-success fw-bold p-0 m-0" href="../supplier/">LogIn </a></p>
 </form>
@@ -159,4 +166,3 @@ if ($emailSend)
                 emailToastOK.show() 
                 </script>`;
 ?>
-

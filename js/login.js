@@ -1,7 +1,7 @@
 
 
 // Fetch the form
-const form = document.querySelector('.needs-validation');
+const form = document.querySelector('.needs-validation')[0];
 
 // Initialize EmailJS with your user ID
 emailjs.init("y6h-t_BnDBEgh4v-k");
