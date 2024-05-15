@@ -1,12 +1,14 @@
 
 
-// Fetch the form
-const form = document.querySelector('.needs-validation')[0];
+
+const emailExistToast = document.getElementById('emailExistToast')
+const emailToastExist = bootstrap.Toast.getOrCreateInstance(emailExistToast)
 
 // Initialize EmailJS with your user ID
 emailjs.init("y6h-t_BnDBEgh4v-k");
 // Function to send verification email
-function sendVerificationEmail(email, otp) {
+async function sendVerificationEmail(email) {
+    otp = generateOTP();
     emailjs.send("service_0hj770c", "template_n3ebbni", {
         to: email,
         from: "ankitbkana@outlook.com",
@@ -14,7 +16,7 @@ function sendVerificationEmail(email, otp) {
         otp: "Your OTP: " + otp
     }).then(function (response) {
         console.log("Email sent successfully", response);
-        form.submit()
+        // form.submit()
     }, function (error) {
         console.error("Email sending failed", error);
     });
@@ -24,35 +26,22 @@ function sendVerificationEmail(email, otp) {
 function generateOTP() {
     return new Promise(function (resolve, reject) {
         // Generate OTP code here
-        const otp = Math.floor(100000 + Math.random() * 900000);
-        if (otp) {
-            resolve(otp); // Resolve the promise with OTP
-        } else {
-            reject(new Error('Failed to generate OTP')); // Reject the promise if OTP generation fails
-        }
+        var otp;
+        $.ajax({
+            url: 'generateOTP.php',
+            type: 'POST',
+            success: function (response) {
+                console.log(response);
+                otp = response;
+            }
+        })
+
+        resolve(otp); // Resolve the promise with OTP
+
     });
 }
 
 
-
-// Add event listener for form submission
-form.addEventListener('submit', function (event) {
-    event.preventDefault();
-    if (!form.checkValidity()) {
-        event.stopPropagation();
-    } else {
-        // Form is valid, proceed with sending email
-        const userEmail = document.getElementById('userEmail').value;
-        generateOTP().then(async function (userOtp) {
-            await sendVerificationEmail(userEmail, userOtp);
-            // Proceed with form submission
-        }).catch(function (error) {
-            console.error('Error generating OTP:', error);
-        });
-    }
-
-    form.classList.add('was-validated');
-}, false);
 
 
 
@@ -68,6 +57,7 @@ form.addEventListener('submit', function (event) {
     Array.from(forms).forEach(form => {
         form.addEventListener('submit', event => {
             if (!form.checkValidity()) {
+                $('#emailmsg').html('')
                 event.preventDefault()
                 event.stopPropagation()
                 // var button = form.querySelector('button[type="submit"]');
@@ -75,9 +65,41 @@ form.addEventListener('submit', function (event) {
                 //     <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                 // <span role="status">Sending OTP ...</span>
                 //     `;
+            } else {
+                event.preventDefault();
+                console.log("i am in pre");
+                emailSending();
             }
 
             form.classList.add('was-validated')
+
         }, false)
     })
 })()
+
+// handling submit form 
+emailSending = async (form) => {
+    // checking the email exist or not via ajax
+    email = document.getElementById('userEmail');
+    $.ajax({
+        url: 'checkExist.php',
+        type: 'POST',
+        data: { userEmail: email.value },
+        success: function (response) {
+            if (response == '1') {
+                $('#emailmsg').html('Email Already Exist')
+            } else {
+                $('#emailmsg').html('');
+                sendVerificationEmail(email);
+
+            }
+
+        }
+    })
+}
+
+
+// const emailToast = document.getElementById('emailToast')
+// const emailToastShow = bootstrap.Toast.getOrCreateInstance(emailToast)
+
+
