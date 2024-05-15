@@ -7,8 +7,8 @@ const emailToastExist = bootstrap.Toast.getOrCreateInstance(emailExistToast)
 // Initialize EmailJS with your user ID
 emailjs.init("y6h-t_BnDBEgh4v-k");
 // Function to send verification email
-async function sendVerificationEmail(email) {
-    otp = generateOTP();
+async function sendVerificationEmail(email,otp) {
+    console.log(otp)
     emailjs.send("service_0hj770c", "template_n3ebbni", {
         to: email,
         from: "ankitbkana@outlook.com",
@@ -90,7 +90,8 @@ emailSending = async (form) => {
                 $('#emailmsg').html('Email Already Exist')
             } else {
                 $('#emailmsg').html('');
-                sendVerificationEmail(email);
+                otp = generateOTP()
+                sendVerificationEmail(email,otp );
 
             }
 
