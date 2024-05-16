@@ -30,13 +30,13 @@ if (isset($_SESSION['loggedin']))
         <!-- toast notification start -->
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
             <div id="emailToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
+                <div class="toast-header bg-success text-white">
                     <img width="30px" src="../../pics/tickmark.gif" class="rounded me-2" alt="...">
                     <strong class="me-auto">Email</strong>
                     <small>0 mins ago</small>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
-                <div class="toast-body">
+                <div class="toast-body bg-success-subtle">
                     OTP send to your email.
                 </div>
             </div>

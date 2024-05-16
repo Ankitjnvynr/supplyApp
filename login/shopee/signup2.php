@@ -56,7 +56,6 @@ if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && iss
     } else
     {
         $userOtpMsg = '<span class="text-danger">Wrong! OTP. Check again';
-        
     }
 }
 ?>
@@ -70,17 +69,46 @@ if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && iss
         <input autocomplete="false" aria-autocomplete="false" type="email" class="form-control" id="userEmail"
             name="userEmail" aria-describedby="emailHelp" required>
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        <div  id="emailmsg" class="text-danger fs-7"></div>
+        <div id="emailmsg" class="text-danger fs-7"></div>
         <div class="invalid-feedback">
             Please enter a valid email.
         </div>
     </div>
     <div class="text-center">
-        <button type="submit" name="Next" class="btn btn-success text-center" fdprocessedid="vw48xs"
+        <button type="submit" id="emailSendBtn" name="Next" class="btn btn-success text-center" fdprocessedid="vw48xs"
             style="width: 100%;">Next -></button>
     </div>
     <p class="m-0 mt-3">Already an Account ? <a class="text-success fw-bold p-0 m-0" href="../supplier/">LogIn </a></p>
 </form>
+
+<form id="otpForm" class="shadow p-3 rounded needs-validation" novalidate method="POST" action="" hidden>
+    <div class="text-center mb-3">
+        <h4 class="text-success">Sign Up</h4>
+    </div>
+    <div class="mb-3">
+        <label for="userPassword" class="form-label">Password</label>
+        <input autocomplete="false" aria-autocomplete="false" type="password" class="form-control" id="userPassword"
+            name="userPassword" required>
+        <div class="invalid-feedback">Please Enter Password.</div>
+    </div>
+    <div class="mb-3">
+        <label for="userPassword" class="form-label">Confirm Password</label>
+        <input autocomplete="false" aria-autocomplete="false" type="password" class="form-control" id="userConfirmPassword" name="userConfirmPassword"required>
+        <div class="invalid-feedback">Please Enter Confirm Password.</div>
+    </div>
+    <div class="mb-3">
+        <label for="userPassword" class="form-label">OTP</label>
+        <input autocomplete="false" minlength="6" maxlength="6" aria-autocomplete="false" type="number" class="form-control" id="userOtp" name="userOtp" required>
+        <div class="invalid-feedback">Please Enter your OTP</div>
+    </div>
+    <div class="text-center">
+        <button type="submit"  name="Signup" class="btn btn-success text-center" fdprocessedid="vw48xs"
+            style="width: 100%;">Sign Up</button>
+    </div>
+    <p class="m-0 mt-3">Already an Account ? <a class="text-success fw-bold p-0 m-0" href="../supplier/">LogIn </a></p>
+</form>
+
+
 
 
 
