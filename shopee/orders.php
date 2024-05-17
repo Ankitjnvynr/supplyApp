@@ -13,12 +13,11 @@ if (!isset($_SESSION['loggedin']))
 $activeMenu = 'orders';
 
 require_once '../partials/_db.php';
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']))
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']) && isset($_POST['selected_Supplier']))
 {
+    $supplier_id = $_POST['selected_Supplier'];
 
-    
-    $supplier_id = '0';
-    echo $shopee_id = $user_id;
+    $shopee_id = $user_id;
     $insert_query = "INSERT INTO orders ( supplier_id, shopee_id) VALUES ('$supplier_id', '$shopee_id')";
 
     if ($conn->query($insert_query) === TRUE)
@@ -31,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']))
         $update_order_id = "UPDATE orders SET `order_id`='$order_id' WHERE id = '$iid'";
         if ($conn->query($update_order_id) === TRUE)
         {
-            echo "New record inserted successfully";
+            // echo "New record inserted successfully";
 
         }
     } else
@@ -59,6 +58,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']))
 </head>
 
 <body>
+    <!-- Create order Modal -->
+    <div class="modal fade" id="crateOrderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered  modal-sm">
+            <div class="modal-content">
+                <form action="" method="POST">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <select class="form-select " name="selected_Supplier" aria-label="Default select example" required>
+                            <option value="" selected>Select Supplier</option>
+                            <?php
+                            $suppliers = "SELECT * FROM `users` WHERE user_type = 'supplier' ORDER BY name ASC";
+                            $result= $conn->query($suppliers);
+                            while($row = $result->fetch_assoc()){
+                                echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="new_order" class="btn btn-success" >Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- create order modal end -->
+
+
+
     <div class=" main position-relative">
         <div class="position-sticky top-0 bg-white container-fluid pb-2" style="--bs-bg-opacity: .9;">
             <?php
@@ -74,11 +106,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']))
             
             ?>
             <div class="d-flex justify-content-between align-items-center">
-                <form action="" method="POST">
 
-                    <button type="submit" name="new_order" class="btn btn-success"><i
-                            class="fa-solid fa-circle-plus mr-2"></i> Create Order</button>
-                </form>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crateOrderModal">
+                    <i class="fa-solid fa-circle-plus mr-2"></i> Create Order</button>
+                </button>
                 <span class="fw-bold text-success">You have <span id="OrderCount">5</span> orders</span>
             </div>
         </div>

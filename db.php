@@ -42,6 +42,7 @@ $products = "CREATE TABLE IF NOT EXISTS products(
     qty INT(6) NOT NULL,
     brand VARCHAR(50),
     category VARCHAR(20),
+    supplier_id VARCHAR(20),
     add_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     UNIQUE KEY unique_product_combination (product_name, price, brand, category)
 )";
@@ -71,7 +72,7 @@ runsql($conn, $orders);
 
 $orderItems = "CREATE TABLE  order_items (
     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    shopee_id VARCHAR(100) NOT NULL,
+    order_id VARCHAR(100) NOT NULL,
     product_name VARCHAR(255) NOT NULL,
     type VARCHAR(100),
     brand VARCHAR(100),
@@ -80,6 +81,6 @@ $orderItems = "CREATE TABLE  order_items (
 
 )";
 
-runsql($conn, $orderItems,"Order_items");
+runsql($conn, $orderItems, "Order_items");
 // Close the database connection
 $conn->close();

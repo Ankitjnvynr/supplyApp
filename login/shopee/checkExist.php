@@ -1,6 +1,7 @@
 <?php
 require_once '../../partials/_db.php';
 $email = $_POST['userEmail'];
+session_start();
 // Function to check if an email exists
 $_SESSION['userEmail'] = $email;
 $sql = "SELECT * FROM users WHERE email = '$email'";

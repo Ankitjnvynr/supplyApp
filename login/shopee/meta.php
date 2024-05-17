@@ -47,11 +47,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             );
             $getid = "SELECT id FROM `users` WHERE email = '$loginEmail'";
             $respon = $conn->query($getid);
-            while($userid = mysqli_fetch_assoc($respon)){
+            while ($userid = mysqli_fetch_assoc($respon))
+            {
                 $_SESSION['userId'] = $userid['id'];
                 $_SESSION['userType'] = $userid['user_type'];
             }
-            $_SESSION['userEmail']=$loginEmail;
+            $_SESSION['userEmail'] = $loginEmail;
             $_SESSION['loggedin'] = true;
             $_SESSION['userName'] = $name;
             header("location: ../handlelogin.php");
@@ -157,6 +158,7 @@ $conn->close();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="../../js/login.js"></script>
 </body>
 

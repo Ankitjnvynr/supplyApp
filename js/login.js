@@ -12,13 +12,14 @@ async function sendVerificationEmail(email, otp) {
         to: email,
         from: "ankitbkana@outlook.com",
         subject: "Verification Code",
-        otp: "Your OTP: " + otp
+        otp: "Your OTP: " + otp,
+        email:email
     }).then(function (response) {
         console.log("Email sent successfully", response);
         $('#emailSendBtn').html('Next >')
         emailToastShow.show()
         $('#otpForm').removeAttr('hidden');
-        $('#emailForm').hide();
+        $('#emailForm').remove();
         // form.submit()
     }, function (error) {
         $('#emailSendBtn').html('Error! try again')
@@ -57,8 +58,11 @@ function generateOTP() {
                 event.preventDefault()
                 event.stopPropagation()
             } else {
-                event.preventDefault();
-                emailSending();
+                let emailForm = document.getElementById('emailForm')
+                if (emailForm) {
+                    event.preventDefault();
+                    emailSending();
+                }
             }
 
             form.classList.add('was-validated')

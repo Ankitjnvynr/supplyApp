@@ -211,13 +211,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
                     <option value="" selected>Category</option>
 
                 </select>
+                <?php
+                if ($_SESSION['userType'] == 'supplier')
+                {
+                    ?>
                 <a href="categories.php">
                     <i data-bs-toggle="modal"
                         class="fa-solid fa-plus  text-white p-1 px-3 rounded-pill bg-secondary"></i>
                 </a>
+                <?php
+                }
+                ?>
             </div>
-            <i data-bs-toggle="modal" data-bs-target="#addProductModal"
-                class="fa-solid fa-circle-plus fs-1 text-success"></i>
+            <?php
+            if ($_SESSION['userType'] == 'supplier')
+            {
+                ?>
+                <i data-bs-toggle="modal" data-bs-target="#addProductModal"
+                    class="fa-solid fa-circle-plus fs-1 text-success"></i>
+                <?php
+            }
+            ?>
         </div>
         <div id="porductBox" class="container text-sm ">
 

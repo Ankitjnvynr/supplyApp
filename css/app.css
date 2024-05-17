@@ -29,11 +29,13 @@ body{
     background-color: var(--white);
     margin: auto;
     overflow-y: scroll;
+    border: 1px solid red;
     /* background: rgb(235,255,242);
     background: linear-gradient(183deg, rgba(235,255,242,1) 0%, rgba(255,255,255,1) 35%, rgba(255,250,250,1) 100%); */
 }
 .main::-webkit-scrollbar {
     width: 0;  /* Hide scrollbar */
+    
 }
 
 /* extanding bootstrap classes */

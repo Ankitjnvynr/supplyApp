@@ -1,4 +1,4 @@
-<div style="height: 60px; width:100vw; max-width: 390px;"  class="position-fixed bottom-0 start-50 translate-middle-x bg-white px-1">
+<div style="height: 60px; width:100vw; max-width: 390px; "   class="position-fixed bottom-0 start-50 translate-middle-x bg-white px-1">
 
     <hr class="p-0 m-0">
     <div class=" footer d-flex justify-content-between align-items-center">

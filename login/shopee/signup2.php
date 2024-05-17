@@ -26,11 +26,13 @@ if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && iss
             $userType = 'shopee';
             $sql = "INSERT INTO users (email, password,user_type) VALUES (?, ?,?)";
             // Prepare the statement
+            $hash = md5($userPassword);
+            $email = $_SESSION['userEmail'];
             $stmt = $conn->prepare($sql);
             if ($stmt)
             {
                 // Bind parameters and execute the statement
-                $stmt->bind_param("sss", $_SESSION['userEmail'], md5($userPassword), $userType);
+                $stmt->bind_param("sss", $email, $hash, $userType);
                 if ($stmt->execute())
                 {
                     $_SESSION['loggedin'] = true;
@@ -81,7 +83,7 @@ if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && iss
     <p class="m-0 mt-3">Already an Account ? <a class="text-success fw-bold p-0 m-0" href="../supplier/">LogIn </a></p>
 </form>
 
-<form id="otpForm" class="shadow p-3 rounded needs-validation" novalidate method="POST" action="" hidden>
+<form id="otpForm" class="shadow p-3 rounded " novalidate method="POST" action="" hidden>
     <div class="text-center mb-3">
         <h4 class="text-success">Sign Up</h4>
     </div>
@@ -93,16 +95,18 @@ if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && iss
     </div>
     <div class="mb-3">
         <label for="userPassword" class="form-label">Confirm Password</label>
-        <input autocomplete="false" aria-autocomplete="false" type="password" class="form-control" id="userConfirmPassword" name="userConfirmPassword"required>
+        <input autocomplete="false" aria-autocomplete="false" type="password" class="form-control"
+            id="userConfirmPassword" name="userConfirmPassword" required>
         <div class="invalid-feedback">Please Enter Confirm Password.</div>
     </div>
     <div class="mb-3">
         <label for="userPassword" class="form-label">OTP</label>
-        <input autocomplete="false" minlength="6" maxlength="6" aria-autocomplete="false" type="number" class="form-control" id="userOtp" name="userOtp" required>
+        <input autocomplete="false" minlength="6" maxlength="6" aria-autocomplete="false" type="number"
+            class="form-control" id="userOtp" name="userOtp" required>
         <div class="invalid-feedback">Please Enter your OTP</div>
     </div>
     <div class="text-center">
-        <button type="submit"  name="Signup" class="btn btn-success text-center" fdprocessedid="vw48xs"
+        <button type="submit" name="Signup" class="btn btn-success text-center" fdprocessedid="vw48xs"
             style="width: 100%;">Sign Up</button>
     </div>
     <p class="m-0 mt-3">Already an Account ? <a class="text-success fw-bold p-0 m-0" href="../supplier/">LogIn </a></p>
