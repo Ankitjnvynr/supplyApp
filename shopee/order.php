@@ -7,10 +7,10 @@ if (!isset($_SESSION['loggedin']))
 $activeMenu = 'orders';
 $submenu = 'My Order';
 require_once '../partials/_db.php';
-?>
-<?php
 
+$orderID = $_GET['order'];
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -18,7 +18,7 @@ require_once '../partials/_db.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title><?php echo $_GET['order'] ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -39,9 +39,11 @@ require_once '../partials/_db.php';
             ?>
         </div>
         <div class="container">
-
-            <p class="fw-semibold text-muted"> ORDER ID: <span
-                    class="text-success fw-bold"><?php echo $_GET['order'] ?></span></p>
+            <div class="d-flex">
+                <p class="fw-semibold text-muted"> ORDER ID: <span
+                    class="text-success fw-bold"><?php echo $_GET['order'] ?></span>
+                </p>
+            </div>
 
             <table>
                 <thead>
@@ -58,7 +60,7 @@ require_once '../partials/_db.php';
                     <?php
 
                     // Retrieve data from the database
-                    $sql = "SELECT * FROM order_items";
+                    $sql = "SELECT * FROM order_items WHERE order_id = '$orderID'" ;
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0)
@@ -79,6 +81,7 @@ require_once '../partials/_db.php';
                     {
                         echo "<tr><td colspan='6'>0 results</td></tr>";
                     }
+                    echo "<tr><td colspan='6'><div onclick='addNewItem(".$_GET['order'].")' class='btn btn-outline-success p-0 m-0 fs-7 px-2'>Add New Row</div></td></tr>";
 
                     // Close connection
                     $conn->close();
@@ -86,9 +89,6 @@ require_once '../partials/_db.php';
                 </tbody>
             </table>
         </div>
-
-
-
         <?php
         include '../partials/_footer.php';
         ?>
@@ -98,7 +98,8 @@ require_once '../partials/_db.php';
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="../js/categories.js"></script>
+
+    <script src="../js/order.js"></script>
 </body>
 
 </html>

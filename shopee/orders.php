@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']) && isset(
                             $suppliers = "SELECT * FROM `users` WHERE user_type = 'supplier' ORDER BY name ASC";
                             $result= $conn->query($suppliers);
                             while($row = $result->fetch_assoc()){
-                                echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
+                                echo '<option value="'.$row['id'].'">'. $row['shop_name'].' ->'.ucfirst($row['name']).'</option>';
                             }
                             ?>
                         </select>
