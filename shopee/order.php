@@ -9,6 +9,16 @@ $submenu = 'My Order';
 require_once '../partials/_db.php';
 
 $orderID = $_GET['order'];
+
+$check = "SELECT * FROM orders WHERE order_id = $orderID";
+// Check if order_id exists
+$resu = $conn->query($check);
+$count = $resu->num_rows;
+if ($count == 0)
+{
+    $orderStatus = "Sorry! order Not Found";
+
+}
 ?>
 
 
@@ -36,12 +46,17 @@ $orderID = $_GET['order'];
         <div class="position-sticky top-0 bg-white container-fluid pb-2" style="--bs-bg-opacity: .9;">
             <?php
             include '../partials/_header.php';
+            if (isset($orderStatus))
+            {
+                echo $orderStatus;
+                exit;
+            }
             ?>
         </div>
         <div class="container">
             <div class="d-flex">
                 <p class="fw-semibold text-muted"> ORDER ID: <span
-                    class="text-success fw-bold"><?php echo $_GET['order'] ?></span>
+                        class="text-success fw-bold"><?php echo $_GET['order'] ?></span>
                 </p>
             </div>
 
@@ -54,34 +69,38 @@ $orderID = $_GET['order'];
                         <th>Brand</th>
                         <th>Qty</th>
                         <th>Subtotal</th>
+                        <th>*</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
 
                     // Retrieve data from the database
-                    $sql = "SELECT * FROM order_items WHERE order_id = '$orderID'" ;
+                    $sql = "SELECT * FROM order_items WHERE order_id = '$orderID'";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0)
                     {
                         // Output data of each row
+                        $sr = 0;
                         while ($row = $result->fetch_assoc())
                         {
+                            $sr++;
                             echo "<tr>";
-                            echo "<td>" . $row["id"] . "</td>";
+                            echo "<td>" . $sr . "</td>";
                             echo "<td class='editable' contenteditable='true'>" . $row["product_name"] . "</td>";
                             echo "<td class='editable' contenteditable='true'>" . $row["type"] . "</td>";
                             echo "<td class='editable' contenteditable='true'>" . $row["brand"] . "</td>";
                             echo "<td class='editable' contenteditable='true'>" . $row["qty"] . "</td>";
                             echo "<td class='editable' contenteditable='true'>" . $row["subtotal"] . "</td>";
+                            echo "<td class='p-0 fs-6' onclick='deleteProductItem(" . $row["id"] . ")' ><i class='fa-regular text-danger fa-trash-can'></i></td>";
                             echo "</tr>";
                         }
                     } else
                     {
-                        echo "<tr><td colspan='6'>0 results</td></tr>";
+                        echo "<tr><td colspan='7'>0 results</td></tr>";
                     }
-                    echo "<tr><td colspan='6'><div onclick='addNewItem(".$_GET['order'].")' class='btn btn-outline-success p-0 m-0 fs-7 px-2'>Add New Row</div></td></tr>";
+                    echo "<tr><td colspan='7'><div onclick='addNewItem(" . $_GET['order'] . ")' class='btn btn-outline-success p-0 m-0 fs-7 px-2'>Add New Row</div></td></tr>";
 
                     // Close connection
                     $conn->close();

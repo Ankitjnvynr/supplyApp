@@ -1,12 +1,21 @@
-addNewItem = (orderID) => {
+addNewItem = async (orderID) => {
     // console.log(orderID)
-    $.ajax({
-        URL: 'parts/_addOrderItem.php',
+    const response = await $.ajax({
+        url: '../parts/_addOrderItem.php',
         type: 'POST',
         data: { orderID: orderID },
-        success: function (response) {
-            console.log(response)
-        }
     })
-
+    location.reload();
 }
+
+deleteProductItem = async (orderID) => {
+    if (confirm("Are you sure to delete ?")) {
+        const response = await $.ajax({
+            url: '../parts/_delOrderItem.php',
+            type: 'POST',
+            data: { orderID: orderID },
+        })
+        location.reload();
+    }
+}
+

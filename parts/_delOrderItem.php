@@ -1,7 +1,7 @@
 <?php
 require_once '../partials/_db.php';
-echo $orderID = $_POST['orderID'];
-$sql = "INSERT INTO `order_items`( `order_id`) VALUES ('$orderID')";
+$orderID = $_POST['orderID'];
+$sql = "DELETE FROM `order_items` WHERE `order_items`.`id` = $orderID";
 $res = $conn->query($sql);
 if($res){
     echo "added";
