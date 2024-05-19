@@ -145,7 +145,7 @@ $conn->close();
                         aria-label=".form-control-sm example" required>
                 </div>
                 <div class="mb-3">
-                    <label for="shop_name" class="form-label-sm">Shop Name</label>
+                    <label for="shop_name" class="form-label-sm">Store Name</label>
                     <input class="form-control form-control-sm" id="shop_name" name="shop_name" type="text"
                         aria-label=".form-control-sm example" required>
                 </div>
