@@ -21,7 +21,6 @@ if ($count == 0)
 }
 ?>
 
-
 <!doctype html>
 <html lang="en">
 
@@ -65,8 +64,8 @@ if ($count == 0)
                     <tr>
                         <th>Sr</th>
                         <th>Product Name</th>
-                        <th>Type</th>
                         <th>Brand</th>
+                        <th>Price</th>
                         <th>Qty</th>
                         <th>Subtotal</th>
                         <th>*</th>
@@ -88,12 +87,12 @@ if ($count == 0)
                             $sr++;
                             echo "<tr>";
                             echo "<td>" . $sr . "</td>";
-                            echo "<td class='editable' contenteditable='true'>" . $row["product_name"] . "</td>";
-                            echo "<td class='editable' contenteditable='true'>" . $row["type"] . "</td>";
-                            echo "<td class='editable' contenteditable='true'>" . $row["brand"] . "</td>";
-                            echo "<td class='editable' contenteditable='true'>" . $row["qty"] . "</td>";
-                            echo "<td class='editable' contenteditable='true'>" . $row["subtotal"] . "</td>";
-                            echo "<td class='p-0 fs-6' onclick='deleteProductItem(" . $row["id"] . ")' ><i class='fa-regular text-danger fa-trash-can'></i></td>";
+                            echo "<td class='editable' contenteditable='true' data-column='product_name' data-id='" . $row["id"] . "'>" . $row["product_name"] . "</td>";
+                            echo "<td class='editable' contenteditable='true' data-column='brand' data-id='" . $row["id"] . "'>" . $row["brand"] . "</td>";
+                            echo "<td class='editable price' contenteditable='true' data-column='type' data-id='" . $row["id"] . "'>" . $row["type"] . "</td>";
+                            echo "<td class='editable qty' contenteditable='true' data-column='qty' data-id='" . $row["id"] . "'>" . $row["qty"] . "</td>";
+                            echo "<td class='subtotal' data-id='" . $row["id"] . "'>" . $row["subtotal"] . "</td>";
+                            echo "<td class='p-0 fs-6' onclick='deleteProductItem(" . $row["id"] . ")'><i class='fa-regular text-danger fa-trash-can'></i></td>";
                             echo "</tr>";
                         }
                     } else
@@ -119,6 +118,7 @@ if ($count == 0)
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
     <script src="../js/order.js"></script>
+
 </body>
 
 </html>
