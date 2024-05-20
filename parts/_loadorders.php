@@ -12,7 +12,10 @@ if (!isset($_SESSION['loggedin']))
 }
 require_once '../partials/_db.php';
 
-$sql = "SELECT * FROM `orders` WHERE shopee_id = $user_id ORDER BY id DESC";
+$start = isset($_POST['start']) ? $_POST['start'] : 0;
+$limit = isset($_POST['limit']) ? $_POST['limit'] : 5;
+
+$sql = "SELECT * FROM `orders` WHERE shopee_id = $user_id ORDER BY id DESC LIMIT $start,$limit" ;
 $res = $conn->query($sql);
 $nums = $res->num_rows;
 if ($nums > 0)
@@ -39,7 +42,8 @@ if ($nums > 0)
             </div>
             <p class="fs-5 fw-bold m-0">
                 <?php echo $Supplier_store_name ?> <a class="fs-7 text-success text-decoration-none"
-                    href="tel:<?php echo $Supplier_phone ?>">(<?php echo ucfirst($Supplier_name) ?>) <i class="fa-solid fa-phone"></i></a>
+                    href="tel:<?php echo $Supplier_phone ?>">(<?php echo ucfirst($Supplier_name) ?>) <i
+                        class="fa-solid fa-phone"></i></a>
             </p>
             <p class="m-0 fs-7 text-muted">You Ordered: Pensil, Erasor, Oyes, .....</p>
             <div class="d-flex gap-2">
