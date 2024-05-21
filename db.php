@@ -70,7 +70,7 @@ $orders = "CREATE TABLE IF NOT EXISTS orders(
 
 runsql($conn, $orders);
 
-$orderItems = "CREATE TABLE  order_items (
+$orderItems = "CREATE TABLE IF NOT EXISTS  order_items (
     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     order_id VARCHAR(100) NOT NULL,
     product_name VARCHAR(255) NOT NULL,
@@ -82,5 +82,10 @@ $orderItems = "CREATE TABLE  order_items (
 )";
 
 runsql($conn, $orderItems, "Order_items");
+
+$alterOrders = "ALTER TABLE orders
+ADD COLUMN status VARCHAR(20) NOT NULL DEFAULT '1' AFTER shopee_id;
+";
+runsql($conn, $alterOrders, "Order_items");
 // Close the database connection
 $conn->close();

@@ -47,7 +47,7 @@ $activeMenu = 'dashboard';
                     <span class="text-muted"><?php echo ucwords($_SESSION['shop_name']) ?></span>
                 </div>
             </div>
-            <div class="mt-4">
+            <!-- <div class="mt-4">
                 <span class="fs-7  fw-semibold">Sales Analytics</span>
                 <div class="d-flex justify-content-between align gap-2">
                     <div class="border border-success-subtle rounded-4 text-center w-100 py-2">
@@ -63,7 +63,7 @@ $activeMenu = 'dashboard';
                         <p class="fs-5 fw-bolder m-0">₹50000</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="mt-4">
                 <span class="fs-7  fw-semibold">Latest Orders</span>
                 <div id="latestOrders" class="">

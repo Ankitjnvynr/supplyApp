@@ -21,7 +21,6 @@ if ($count == 0)
 } else
 {
     $data = $resu->fetch_assoc();
-    $editStatus = $data['status'] == '1' ? "contenteditable='true'" : "";
 }
 ?>
 
@@ -62,20 +61,11 @@ if ($count == 0)
                 <p class="fw-semibold text-muted"> ORDER ID: <span
                         class="text-success fw-bold"><?php echo $_GET['order'] ?></span>
                 </p>
-                <?php
-                if ($_SESSION['userType'] == 'supplier')
-                {
-
-                    ?>
-                    <div class="form-check form-switch form-check-reverse text-success ">
-                        <input  class="form-check-input "
-                            type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                        <label class="form-check-label " for="flexSwitchCheckChecked">Editable</label>
-                    </div>
-                    <?php
-                }
-
-                ?>
+                <div class="form-check form-switch form-check-reverse text-success ">
+                    <input onchange="changeOrderStatus(this,<?php echo $_GET['order'] ?>)" class="form-check-input "
+                        type="checkbox" role="switch" id="flexSwitchCheckChecked" <?php echo $data['status'] == '1' ? 'checked=true' : '' ?>>
+                    <label class="form-check-label " for="flexSwitchCheckChecked">Editable</label>
+                </div>
             </div>
 
             <table>
@@ -106,31 +96,19 @@ if ($count == 0)
                             $sr++;
                             echo "<tr>";
                             echo "<td>" . $sr . "</td>";
-                            echo "<td class='editable' " . $editStatus . " data-column='product_name' data-id='" . $row["id"] . "'>" . $row["product_name"] . "</td>";
-                            echo "<td class='editable' " . $editStatus . " data-column='brand' data-id='" . $row["id"] . "'>" . $row["brand"] . "</td>";
-                            echo "<td class='editable price' " . $editStatus . " data-column='type' data-id='" . $row["id"] . "'>" . $row["type"] . "</td>";
-                            echo "<td class='editable qty' " . $editStatus . " data-column='qty' data-id='" . $row["id"] . "'>" . $row["qty"] . "</td>";
+                            echo "<td class='editable' contenteditable='true' data-column='product_name' data-id='" . $row["id"] . "'>" . $row["product_name"] . "</td>";
+                            echo "<td class='editable' contenteditable='true' data-column='brand' data-id='" . $row["id"] . "'>" . $row["brand"] . "</td>";
+                            echo "<td class='editable price' contenteditable='true' data-column='type' data-id='" . $row["id"] . "'>" . $row["type"] . "</td>";
+                            echo "<td class='editable qty' contenteditable='true' data-column='qty' data-id='" . $row["id"] . "'>" . $row["qty"] . "</td>";
                             echo "<td class='subtotal' data-id='" . $row["id"] . "'>" . $row["subtotal"] . "</td>";
-                            if ($data['status'] == '1')
-                            {
-                                echo "<td class='p-0 fs-6' onclick='deleteProductItem(" . $row["id"] . ")'><i class='fa-regular text-danger fa-trash-can'></i></td>";
-                            } else
-                            {
-                                echo "<td></td>";
-                            }
+                            echo "<td class='p-0 fs-6' onclick='deleteProductItem(" . $row["id"] . ")'><i class='fa-regular text-danger fa-trash-can'></i></td>";
                             echo "</tr>";
                         }
                     } else
                     {
                         echo "<tr><td colspan='7'>0 results</td></tr>";
                     }
-                    if ($data['status'] == '1')
-                    {
-                        echo "<tr><td colspan='7'><div onclick='addNewItem(" . $_GET['order'] . ")' class='btn btn-outline-success p-0 m-0 fs-7 px-2'>Add New Row</div></td></tr>";
-                    } else
-                    {
-                        echo "<tr><td colspan='7'>You can not edit more, Your order in processing..</tr>";
-                    }
+                    echo "<tr><td colspan='7'><div onclick='addNewItem(" . $_GET['order'] . ")' class='btn btn-outline-success p-0 m-0 fs-7 px-2'>Add New Row</div></td></tr>";
 
                     // Close connection
                     $conn->close();
@@ -150,6 +128,17 @@ if ($count == 0)
 
     <script src="../js/order.js"></script>
 
+    <script>
+        changeOrderStatus = (target, id) => {
+            if (this.checked) {
+                console.log('Switch is ON');
+                // Add your code to handle the switch being turned on
+            } else {
+                console.log('Switch is OFF');
+                // Add your code to handle the switch being turned off
+            }
+        }
+    </script>
 
 </body>
 

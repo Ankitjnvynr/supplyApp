@@ -11,7 +11,8 @@
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: x-small !important;
+  font-size: 0.7rem !important;
+  font-weight: 600;
 }
 
 th,
