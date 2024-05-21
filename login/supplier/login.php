@@ -19,6 +19,7 @@ if (isset($_POST['loginbtn']))
                     echo $_SESSION['userId'] = $row['id'];
                     echo $_SESSION['userEmail'] = $row['email'];
                     echo $_SESSION['userType'] = $row['user_type'];
+                    echo $_SESSION['shop_name'] = $row['shop_name'];
                     header("location: ../handlelogin.php");
                     exit;
                 }else{

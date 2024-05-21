@@ -98,13 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']) && isset(
             ?>
         </div>
         <div class="container">
-            <?php
-
-            // $id = 'ankit kumar paul and it s not  along lenghuhkadfhjsdfhsi'; // Generate a unique ID
-            // $hash = crc32($id); // Generate the CRC32 hash
-            // echo $hash;
-            
-            ?>
+           
             <div class="d-flex justify-content-between align-items-center">
 
                 <!-- Button trigger modal -->

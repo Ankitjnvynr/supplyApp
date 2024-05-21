@@ -26,6 +26,7 @@ $activeMenu = 'dashboard';
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="../css/orders.css">
     <link rel="stylesheet" href="../css/footer.css">
 </head>
 
@@ -42,8 +43,8 @@ $activeMenu = 'dashboard';
                     <!-- <img src="" alt=""> -->
                 </div>
                 <div class="info ">
-                    <h2 class="p-0 m-0 fw-bolder text-success">120</h2>
-                    <span class="text-muted">Total Shopkeepers</span>
+                    <h2 class="p-0 m-0 fw-bolder text-success"><?php echo ucwords($_SESSION['userName']) ?></h2>
+                    <span class="text-muted"><?php echo ucwords($_SESSION['shop_name']) ?></span>
                 </div>
             </div>
             <div class="mt-4">
@@ -65,7 +66,7 @@ $activeMenu = 'dashboard';
             </div>
             <div class="mt-4">
                 <span class="fs-7  fw-semibold">Latest Orders</span>
-                <div id="latestOrders" class="d-flex flex-wrap">
+                <div id="latestOrders" class="">
 
                 </div>
             </div>
@@ -80,6 +81,8 @@ $activeMenu = 'dashboard';
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="../js/shopee.js"></script>
+    <script src="../js/shopeeOrders.js"></script>
+
 </body>
 
 </html>
