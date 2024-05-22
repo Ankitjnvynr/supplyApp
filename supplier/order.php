@@ -62,9 +62,9 @@ if ($count == 0)
                         class="text-success fw-bold"><?php echo $_GET['order'] ?></span>
                 </p>
                 <div class="form-check form-switch form-check-reverse text-success ">
-                    <input onchange="changeOrderStatus(this,<?php echo $_GET['order'] ?>)" class="form-check-input "
+                    <input onchange="changeOrderStatus(this, <?php echo $_GET['order'] ?>)" class="form-check-input"
                         type="checkbox" role="switch" id="flexSwitchCheckChecked" <?php echo $data['status'] == '1' ? 'checked=true' : '' ?>>
-                    <label class="form-check-label " for="flexSwitchCheckChecked">Editable</label>
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Editable</label>
                 </div>
             </div>
 
@@ -129,14 +129,17 @@ if ($count == 0)
     <script src="../js/order.js"></script>
 
     <script>
-        changeOrderStatus = (target, id) => {
-            if (this.checked) {
-                console.log('Switch is ON');
-                // Add your code to handle the switch being turned on
-            } else {
-                console.log('Switch is OFF');
-                // Add your code to handle the switch being turned off
-            }
+        function changeOrderStatus(target, id) {
+            let status = target.checked ? 1 : 0;
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "../parts/_updateOrderStatus.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
+                }
+            };
+            xhr.send("order_id=" + id + "&status=" + status);
         }
     </script>
 
