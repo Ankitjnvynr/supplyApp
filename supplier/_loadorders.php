@@ -48,7 +48,7 @@ if ($nums > 0)
             <div class="d-flex justify-content-between">
                 <p class="m-0 fs-7 text-muted">You Ordered: Pensil, Erasor, Oyes, .....</p>
                 <div class="form-check form-switch form-check-reverse border-top border-bottom border-success-subtle rounded ">
-                    <input class="form-check-input " type="checkbox" id="flexSwitchCheckReverse" <?php echo $row['status']=='1'?'checked':'' ?>>
+                    <input onchange="changeOrderStatus(this, <?php echo $row['order_id'] ?>)" class="form-check-input " type="checkbox" id="flexSwitchCheckReverse" <?php echo $row['status']=='1'?'checked':'' ?>>
                     <label class="form-check-label fs-7" for="flexSwitchCheckReverse">Editable</label>
                 </div>
             </div>

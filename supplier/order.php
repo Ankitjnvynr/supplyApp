@@ -125,23 +125,9 @@ if ($count == 0)
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
+    <script src="../js/supplierOrder.js"></script>
     <script src="../js/order.js"></script>
 
-    <script>
-        function changeOrderStatus(target, id) {
-            let status = target.checked ? 1 : 0;
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", "../parts/_updateOrderStatus.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    console.log(xhr.responseText);
-                }
-            };
-            xhr.send("order_id=" + id + "&status=" + status);
-        }
-    </script>
 
 </body>
 
