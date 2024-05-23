@@ -68,8 +68,7 @@ if ($count == 0)
 
                     ?>
                     <div class="form-check form-switch form-check-reverse text-success ">
-                        <input  class="form-check-input "
-                            type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                        <input class="form-check-input " type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
                         <label class="form-check-label " for="flexSwitchCheckChecked">Editable</label>
                     </div>
                     <?php
@@ -104,12 +103,12 @@ if ($count == 0)
                         while ($row = $result->fetch_assoc())
                         {
                             $sr++;
-                            echo "<tr>";
+                            echo "<tr class='position-relative'>";
                             echo "<td>" . $sr . "</td>";
-                            echo "<td class='editable' " . $editStatus . " data-column='product_name' data-id='" . $row["id"] . "'>" . $row["product_name"] . "</td>";
-                            echo "<td class='editable' " . $editStatus . " data-column='brand' data-id='" . $row["id"] . "'>" . $row["brand"] . "</td>";
-                            echo "<td class='editable price' " . $editStatus . " data-column='type' data-id='" . $row["id"] . "'>" . $row["type"] . "</td>";
-                            echo "<td class='editable qty' " . $editStatus . " data-column='qty' data-id='" . $row["id"] . "'>" . $row["qty"] . "</td>";
+                            echo "<td class='editable ' " . $editStatus . " data-column='product_name' data-id='" . $row["id"] . "'>" . $row["product_name"] . "</td>";
+                            echo "<td class='editable ' " . $editStatus . " data-column='brand' data-id='" . $row["id"] . "'>" . $row["brand"] . "</td>";
+                            echo "<td class='editable  price' " . $editStatus . " data-column='type' data-id='" . $row["id"] . "'>" . $row["type"] . "</td>";
+                            echo "<td class='editable  qty' " . $editStatus . " data-column='qty' data-id='" . $row["id"] . "'>" . $row["qty"] . "</td>";
                             echo "<td class='subtotal' data-id='" . $row["id"] . "'>" . $row["subtotal"] . "</td>";
                             if ($data['status'] == '1')
                             {
@@ -149,7 +148,7 @@ if ($count == 0)
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
     <script src="../js/order.js"></script>
-
+    <script src="../js/sugession.js"></script>
 
 </body>
 

@@ -39,3 +39,11 @@ th {
     transform: scale(0);
   }
 }
+.editable{
+  position: relative;
+}
+.sugession-box{
+  position: absolute;
+  bottom: 0;
+  background-color: red;
+}
