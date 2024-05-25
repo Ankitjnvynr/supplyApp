@@ -1,15 +1,32 @@
 loadOrders = () => {
+    fltrs = {
+        searchbox: $('#searchBox').val(),
+        category: $('#filterCat').val(),
+        start: '0',
+        limit: '12',
+    }
     $.ajax({
         url: '../parts/_loadorders.php',
         type: 'POST',
-        fltr: {},
+        data: fltrs,
+
         success: function (response) {
             $('#ordersContainer').html(response)
+            console.log(fltrs)
 
         }
     })
 }
 loadOrders()
+
+$(document).ready(function () {
+    $("#searchBox").on("input", function () {  /// searchbox event for searching something
+        loadOrders()
+
+    });
+});
+
+
 
 deleteOrder = (e, orderID) => {
     if (confirm('Are you sure ?')) {

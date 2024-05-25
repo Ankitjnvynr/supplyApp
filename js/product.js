@@ -24,7 +24,9 @@ loadProduct()
 
 $(document).ready(function () {
   $("#searchBox").on("input", function () {
+    
     loadProduct()
+    
   });
 });
 // loadInfo('#porductBox', '../parts/_loadProducts.php');
