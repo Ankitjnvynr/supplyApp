@@ -39,11 +39,30 @@ th {
     transform: scale(0);
   }
 }
-.editable{
+.editable {
   position: relative;
 }
-.sugession-box{
+.sugession-box {
   position: absolute;
   bottom: 0;
   background-color: red;
+}
+
+.ui-menu.ui-widget.ui-widget-content.ui-autocomplete.ui-front {
+  background-color: rgba(255, 255, 255, 0.936);
+  backdrop-filter: blur(3px);
+  display: flex !important;
+  flex-wrap: wrap;
+  list-style: none;
+  position: absolute;
+  box-shadow: inset;
+  gap: 3px;
+}
+.ui-menu.ui-widget.ui-widget-content.ui-autocomplete.ui-front li {
+  flex: 1 0 50px;
+  border: 1px solid rosybrown;
+  border-radius: 5px;
+  text-align: center;
+  width: fit-content;
+  cursor: pointer;
 }

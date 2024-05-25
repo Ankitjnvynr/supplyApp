@@ -77,7 +77,7 @@ if ($count == 0)
                 ?>
             </div>
 
-            <table>
+            <table id="editableTable">
                 <thead>
                     <tr>
                         <th>Sr</th>
@@ -146,6 +146,7 @@ if ($count == 0)
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
     <script src="../js/order.js"></script>
     <script src="../js/sugession.js"></script>

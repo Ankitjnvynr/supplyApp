@@ -31,6 +31,11 @@ $(document).ready(function () {
 
 
     $('.editable').blur(function () {
+        try {
+            $(this).autocomplete("destroy");
+        } catch (error) {
+
+        }
         var id = $(this).data('id');
         var column = $(this).data('column');
         var value = $(this).text();

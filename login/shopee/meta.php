@@ -51,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             {
                 $_SESSION['userId'] = $userid['id'];
                 $_SESSION['userType'] = $userid['user_type'];
+                
             }
             $_SESSION['userEmail'] = $loginEmail;
             $_SESSION['loggedin'] = true;

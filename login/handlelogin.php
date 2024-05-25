@@ -31,6 +31,7 @@ if (isset($_SESSION['loggedin']))
                 {
                     $_SESSION['userID'] = $row['id'];
                     $_SESSION['userName'] = $row['name'];
+                    $_SESSION['shop_name'] = $row['shop_name'];
                     if ($_SESSION['userType'] == 'supplier')
                     {
                         header('location:../supplier');
