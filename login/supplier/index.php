@@ -46,7 +46,7 @@ if (isset($_SESSION['loggedin']))
 
         <div class="choose-user-type-box d-flex gap-4 flex-column align-items-center justify-content-center ">
             <?php
-            isset($_GET['signup']) ? include 'signup2.php' : include 'login.php';
+            isset($_GET['signup']) ? include 'signup.php' : include 'login.php';
             ?>
         </div>
     </div>

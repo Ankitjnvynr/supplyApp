@@ -27,7 +27,7 @@ $activeMenu = 'orders';
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/app.css">
     <link rel="stylesheet" href="../css/footer.css">
-     <link rel="stylesheet" href="../css/orders.css">
+    <link rel="stylesheet" href="../css/orders.css">
 </head>
 
 <body>
@@ -37,9 +37,28 @@ $activeMenu = 'orders';
             include '../partials/_header.php';
             ?>
         </div>
-        <div id="ordersContainer" class="container ">
-            lorem500
+        <div class="container">
+            <span class="fw-bold fs-7 text-success">Showing <span id="OrderCount1">5</span>/<span id="OrderCount2">5</span> orders</span>
+
+            <div style="margin-bottom: -12px;" class="-m-2 hide-scroll-bar d-flex mt-2 gap-1 overflow-x-scroll ">
+                <span onclick="loadOrders(null, null, 0, 5)"
+                    class="filter-btn active cursor-pointer no-space-wrap bg-secondary-subtle fs-7 rounded rounded-pill px-2 p-1">All</span>
+                <span onclick="dateFilter(null,7)"
+                    class="filter-btn cursor-pointer no-space-wrap bg-secondary-subtle fs-7 rounded rounded-pill px-2 p-1">last
+                    7 days</span>
+                <span onclick="dateFilter(null,30)"
+                    class="filter-btn cursor-pointer no-space-wrap bg-secondary-subtle fs-7 rounded rounded-pill px-2 p-1">last
+                    30 days</span>
+                <span
+                    class="filter-btn cursor-pointer no-space-wrap bg-secondary-subtle fs-7 rounded rounded-pill px-2 p-1 d-flex gap-2">
+                    <input class="filter-date-input" id="startDate" class="fs-7" type="date">
+                    <span class="text-success fw-bold">TO</span>
+                    <input class="filter-date-input" id="endDate" class="fs-7" type="date">
+
+                </span>
+            </div>
         </div>
+        <div id="ordersContainer" class="container "></div>
     </div>
     <?php
     include '../partials/_footer.php';

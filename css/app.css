@@ -27,10 +27,10 @@ body {
 }
 .main {
   /* max-width: 390px; */
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
   background-color: var(--white);
   margin: auto;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   border: 1px solid red;
   padding-bottom: 10px;
 
@@ -44,4 +44,26 @@ body {
 /* extanding bootstrap classes */
 .fs-7 {
   font-size: 0.8rem !important;
+}
+.no-space-wrap {
+  white-space: nowrap;
+}
+.filter-date-input{
+  background: transparent;
+  border: none;
+}
+.hide-scroll-bar{
+  -webkit-scrollbar: none;
+  scroll-behavior: smooth;
+}
+.hide-scroll-bar::-webkit-scrollbar {
+  width: 0; /* Hide scrollbar */
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+.filter-btn.active{
+  background-color: var(--clr2) !important;
+  color: var(--clr1);
+  font-weight: 700;
 }

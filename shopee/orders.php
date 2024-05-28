@@ -68,20 +68,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']) && isset(
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <select class="form-select " name="selected_Supplier" aria-label="Default select example" required>
+                        <select class="form-select " name="selected_Supplier" aria-label="Default select example"
+                            required>
                             <option value="" selected>Select Supplier</option>
                             <?php
                             $suppliers = "SELECT * FROM `users` WHERE user_type = 'supplier' ORDER BY name ASC";
-                            $result= $conn->query($suppliers);
-                            while($row = $result->fetch_assoc()){
-                                echo '<option value="'.$row['id'].'">'. $row['shop_name'].' ->'.ucfirst($row['name']).'</option>';
+                            $result = $conn->query($suppliers);
+                            while ($row = $result->fetch_assoc())
+                            {
+                                echo '<option value="' . $row['id'] . '">' . $row['shop_name'] . ' ->' . ucfirst($row['name']) . '</option>';
                             }
                             ?>
                         </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" name="new_order" class="btn btn-success" >Save changes</button>
+                        <button type="submit" name="new_order" class="btn btn-success">Save changes</button>
                     </div>
                 </form>
             </div>
@@ -98,18 +100,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']) && isset(
             ?>
         </div>
         <div class="container">
-           
             <div class="d-flex justify-content-between align-items-center">
-
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crateOrderModal">
                     <i class="fa-solid fa-circle-plus mr-2"></i> Create Order</button>
                 </button>
-                <span class="fw-bold text-success">You have <span id="OrderCount">5</span> orders</span>
+                <span class="fw-bold fs-7 text-success">showing <span id="OrderCount1">5</span>/<span
+                        id="OrderCount2">5</span> orders</span>
             </div>
+            <div style="margin-bottom: -12px;" class="-m-2 hide-scroll-bar d-flex mt-2 gap-1 overflow-x-scroll ">
+                <span onclick="loadOrders(null, null, 0, 5)"
+                    class="filter-btn active cursor-pointer no-space-wrap bg-secondary-subtle fs-7 rounded rounded-pill px-2 p-1">All</span>
+                <span onclick="dateFilter(null,7)"
+                    class="filter-btn cursor-pointer no-space-wrap bg-secondary-subtle fs-7 rounded rounded-pill px-2 p-1">last
+                    7 days</span>
+                <span onclick="dateFilter(null,30)"
+                    class="filter-btn cursor-pointer no-space-wrap bg-secondary-subtle fs-7 rounded rounded-pill px-2 p-1">last
+                    30 days</span>
+                <span
+                    class="filter-btn cursor-pointer no-space-wrap bg-secondary-subtle fs-7 rounded rounded-pill px-2 p-1 d-flex gap-2">
+                    <input class="filter-date-input" id="startDate" class="fs-7" type="date">
+                    <span class="text-success fw-bold">TO</span>
+                    <input class="filter-date-input" id="endDate" class="fs-7" type="date">
+
+                </span>
+            </div>
+
         </div>
         <div class="container" id="ordersContainer">
 
+        </div>
+        <div id="loadingAnimation" style="display:none;position:fixed;bottom:10px;right:10px;">
+            <img src="../pics/loading.gif" alt="Loading...">
         </div>
     </div>
     <?php

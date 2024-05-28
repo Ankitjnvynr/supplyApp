@@ -1,15 +1,66 @@
-loadOrders = () => {
+
+loadOrders = (start_date, end_date, start, limit) => {
+    fltrs = {
+        searchbox: $('#searchBox').val(),
+        category: $('#filterCat').val(),
+        start: start,
+        limit: limit,
+        start_date: start_date,
+        end_date: end_date,
+    }
     $.ajax({
         url: '_loadorders.php',
         type: 'POST',
-        fltr: {},
+        data: fltrs,
         success: function (response) {
-            $('#ordersContainer').html(response)
-
+            $('#ordersContainer').html(response);
         }
     })
+    $.ajax({
+        url: '../parts/_filterOrderCount.php',
+        type: 'POST',
+        data: fltrs,
+
+        success: function (response) {
+            $('#OrderCount1').html(response.filtered_orders)
+            $('#OrderCount2').html(response.total_orders)
+            console.log("the response is:", response)
+        }
+
+    })
 }
-loadOrders()
+
+// date filter with onlick
+const dateFilter = (startDate, days) => {
+    let end_date = new Date();
+    end_date.setDate(end_date.getDate() + 1); // Increment today's date by 1
+    end_date = end_date.toISOString().split('T')[0]; // Convert to ISO string and get the date part 
+
+    let start_date;
+
+    if (startDate) {
+        start_date = startDate;
+    } else if (days) {
+        let date = new Date();
+        date.setDate(date.getDate() - days);
+        start_date = date.toISOString().split('T')[0];
+    }
+
+    loadOrders(start_date, end_date, 0, 10);
+};
+// Attach event listeners for the date inputs
+$('#startDate, #endDate').change(function () {
+    let startDate = $('#startDate').val();
+    let endDate = $('#endDate').val();
+    if (startDate && endDate) {
+        loadOrders(startDate, endDate, 0, 10);
+    }
+});
+
+
+
+
+loadOrders(null, null, 0, 5)
 
 deleteOrder = (e, orderID) => {
     if (confirm('Are you sure ?')) {

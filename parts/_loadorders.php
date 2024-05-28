@@ -16,6 +16,8 @@ $userName = $_SESSION['userName'];
 // Retrieving POST parameters and ensuring they are sanitized
 $searchbox = isset($_POST['searchbox']) ? $_POST['searchbox'] : '';
 $category = isset($_POST['category']) ? $_POST['category'] : '';
+$start_date = isset($_POST['start_date']) ? $_POST['start_date'] : '';
+$end_date = isset($_POST['end_date']) ? $_POST['end_date'] : '';
 $start = isset($_POST['start']) ? (int) $_POST['start'] : 0;
 $limit = isset($_POST['limit']) ? (int) $_POST['limit'] : 10;
 
@@ -48,6 +50,20 @@ if (!empty($category))
 {
     $whereClause .= ' AND category = ?';
     $params[] = $category;
+    $types .= 's';
+}
+// Adding date filter to the WHERE clause
+if (!empty($start_date))
+{
+    $whereClause .= ' AND dt >= ?';
+    $params[] = $start_date;
+    $types .= 's';
+}
+
+if (!empty($end_date))
+{
+    $whereClause .= ' AND dt <= ?';
+    $params[] = $end_date;
     $types .= 's';
 }
 
