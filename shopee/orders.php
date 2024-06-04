@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']) && isset(
             <div class="modal-content">
                 <form action="" method="POST">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Create Order</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']) && isset(
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" name="new_order" class="btn btn-success">Save changes</button>
+                        <button type="submit" name="new_order" class="btn btn-success">Create</button>
                     </div>
                 </form>
             </div>
@@ -102,14 +102,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']) && isset(
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crateOrderModal">
-                    <i class="fa-solid fa-circle-plus mr-2"></i> Create Order</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crateOrderModal"
+                    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                    <i class="fa-solid fa-circle-plus mr-2"></i> Create New Order</button>
                 </button>
+                <!-- <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crateOrderModal">
+                    <i class="fa-solid fa-circle-plus mr-2"></i> Create Order</button>
+                </button> -->
                 <span class="fw-bold fs-7 text-success">showing <span id="OrderCount1">5</span>/<span
                         id="OrderCount2">5</span> orders</span>
             </div>
             <div style="margin-bottom: -12px;" class="-m-2 hide-scroll-bar d-flex mt-2 gap-1 overflow-x-scroll ">
-                <span onclick="loadOrders(null, null, 0, 5)"
+                <span onclick="resetFilter()"
                     class="filter-btn active cursor-pointer no-space-wrap bg-secondary-subtle fs-7 rounded rounded-pill px-2 p-1">All</span>
                 <span onclick="dateFilter(null,7)"
                     class="filter-btn cursor-pointer no-space-wrap bg-secondary-subtle fs-7 rounded rounded-pill px-2 p-1">last
@@ -131,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']) && isset(
 
         </div>
         <div id="loadingAnimation" style="display:none;position:fixed;bottom:10px;right:10px;">
-            <img src="../pics/loading.gif" alt="Loading...">
+            <img style="width:50px;" src="../pics/loading.gif" alt="Loading...">
         </div>
     </div>
     <?php
