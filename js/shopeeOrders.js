@@ -105,32 +105,30 @@ function getNumberOfItems(containerId) {
 
 
 
-
-$(window).on('scroll', function () {
-    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100 && !isLoading) {
-        start += limit;
-        console.log("scrolling...");
-
+$(document).ready(
+    $('#loadMoreBtn').on('click',function (){
+        $('#loadMoreBtn').text = "loading..."
         // Usage
         var numberOfItems = getNumberOfItems('ordersContainer');
         console.log('Number of items in the container:', numberOfItems);
         updateParam('start', numberOfItems)
-
+    
         if (responseEnd) {
             console.table(fltrs)
             return;
         } else {
             let filter = getUrlParams();
             loadOrders(filter, true)
-
+    
         }
-    }
-});
+    })
+)
 
 // Initial load
 $(document).ready(function () {
+    resetFilter();
     let filter = getUrlParams();
-    loadOrders(filter, null)
+    loadOrders(filter, null);
 });
 
 // Date filter functionality
