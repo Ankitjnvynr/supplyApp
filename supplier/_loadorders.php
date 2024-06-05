@@ -48,11 +48,18 @@ if ($nums > 0)
             <div class="d-flex justify-content-between">
                 <p class="m-0 fs-7 text-muted">You Ordered: Pensil, Erasor, Oyes, .....</p>
                 <div class="form-check form-switch form-check-reverse border-top border-bottom border-success-subtle rounded ">
-                    <input onchange="changeOrderStatus(this, <?php echo $row['order_id'] ?>)" class="form-check-input " type="checkbox" id="flexSwitchCheckReverse" <?php echo $row['status']=='1'?'checked':'' ?>>
+                    <input onchange="changeOrderStatus(this, <?php echo $row['order_id'] ?>)" class="form-check-input "
+                        type="checkbox" id="flexSwitchCheckReverse" <?php echo $row['status'] == '1' ? 'checked' : '' ?>>
                     <label class="form-check-label fs-7" for="flexSwitchCheckReverse">Editable</label>
                 </div>
             </div>
             <div class="d-flex gap-2">
+                <a class="fs-4 shadow rounded-pill px-2 text-success text-decoration-none " href="tel:<?php echo $Supplier_phone ?>">
+                    <i class="fa-solid fa-phone-volume"></i>
+                </a>
+                <a class="fs-4 px-2 shadow rounded-pill text-success text-decoration-none" href="https://wa.me/91<?php echo $Supplier_phone ?>">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
                 <a href="order.php?order=<?php echo $row['order_id']; ?>"
                     class=" flex-item-btn btn btn-success fs-7 m-1 rounded-pill p-1"><i class="fa-brands fa-readme"></i> View
                     Order</a>

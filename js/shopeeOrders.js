@@ -13,7 +13,7 @@ function resetFilter() {
     const baseUrl = window.location.origin + window.location.pathname;
     history.pushState({}, "", baseUrl);
     $('#searchBox').val('');
-    loadOrders({},null)
+    loadOrders({}, null)
 }
 function getUrlParams() {
     const queryString = window.location.search;
@@ -52,6 +52,9 @@ let fltrs = {
 
 function loadOrders(fltrs, append = false) {
     if (isLoading) return;
+    if ($('#ordersContainer').children().last().text() === 'No order found') {
+        return;
+    }
     $('#loadingAnimation').show();
     $.ajax({
         url: '../parts/_loadorders.php',
@@ -88,17 +91,38 @@ function loadOrders(fltrs, append = false) {
     });
 }
 
+
+
+function getNumberOfItems(containerId) {
+    var container = document.getElementById(containerId);
+    if (container) {
+        return container.childElementCount;
+    } else {
+        console.error('Container with id ' + containerId + ' not found.');
+        return 0;
+    }
+}
+
+
+
+
 $(window).on('scroll', function () {
     if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100 && !isLoading) {
         start += limit;
-        console.log("scrolling...")
+        console.log("scrolling...");
+
+        // Usage
+        var numberOfItems = getNumberOfItems('ordersContainer');
+        console.log('Number of items in the container:', numberOfItems);
+        updateParam('start', numberOfItems)
+
         if (responseEnd) {
             console.table(fltrs)
             return;
         } else {
             let filter = getUrlParams();
             loadOrders(filter, true)
-            
+
         }
     }
 });
@@ -115,12 +139,13 @@ const dateFilter = (startDate, days) => {
     end_date.setDate(end_date.getDate() + 1);
     end_date = end_date.toISOString().split('T')[0];
     updateParam('end_date', end_date)
+    updateParam('start', 0)
 
     let start_date;
 
     if (startDate) {
         start_date = startDate;
-        updateParam('start_date',start_date)
+        updateParam('start_date', start_date)
     } else if (days) {
         let date = new Date();
         date.setDate(date.getDate() - days);
@@ -153,9 +178,9 @@ $(document).ready(function () {
     $("#searchBox").attr("placeholder", "Search orders by order id....");
     $("#searchBox").on("input", function () {
         updateParam('searchbox', this.value)
-        
+
         let filter = getUrlParams();
-        loadOrders(filter,null)
+        loadOrders(filter, null)
     });
 
     $(".filter-btn").on('click', function () {

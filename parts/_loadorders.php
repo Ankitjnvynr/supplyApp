@@ -105,12 +105,21 @@ if ($res->num_rows > 0)
             </div>
             <p class="fs-5 fw-bold m-0">
                 <?php echo $Supplier_store_name; ?>
-                <a class="fs-7 text-success text-decoration-none" href="tel:<?php echo $Supplier_phone; ?>">
-                    (<?php echo ucfirst($Supplier_name); ?>) <i class="fa-solid fa-phone"></i>
+                <a class="fs-7 text-success text-decoration-none" >
+                    (<?php echo ucfirst($Supplier_name); ?>) 
                 </a>
             </p>
             <p class="m-0 fs-7 text-muted">You Ordered: Pensil, Erasor, Oyes, .....</p>
-            <div class="d-flex gap-2">
+            <div class="d-flex gap-1">
+                <a class="fs-4 shadow-sm rounded-pill px-2 text-success text-decoration-none "
+                    href="tel:<?php echo $Supplier_phone ?>">
+                    <i class="fa-solid fa-phone-volume"></i>
+                </a>
+                <a class="fs-4 px-2 shadow-sm rounded-pill text-success text-decoration-none"
+                    href="https://wa.me/91<?php echo $Supplier_phone."?text=Hi, ". ucfirst($Supplier_name) ?>  ">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+
                 <a href="order.php?order=<?php echo htmlspecialchars($row['order_id']); ?>"
                     class="flex-item-btn btn btn-success fs-7 m-1 rounded-pill p-1">
                     <i class="fa-brands fa-readme"></i> View Order
