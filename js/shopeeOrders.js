@@ -34,7 +34,7 @@ function getUrlParams() {
 
 
 
-let isLoading = false;
+
 let start = 0;
 let limit = 10;
 let responseEnd = false;
@@ -51,7 +51,7 @@ let fltrs = {
 };
 
 function loadOrders(fltrs, append = false) {
-    if (isLoading) return;
+    
     if ($('#ordersContainer').children().last().text() === 'No order found') {
         return;
     }
@@ -69,11 +69,11 @@ function loadOrders(fltrs, append = false) {
             } else {
                 $('#ordersContainer').html(response);
             }
-            isLoading = false;
+            
             $('#loadingAnimation').hide();
         },
         error: function (xhr, status, error) {
-            isLoading = false;
+            
             $('#loadingAnimation').hide();
         }
     });
