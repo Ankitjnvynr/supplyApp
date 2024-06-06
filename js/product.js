@@ -24,10 +24,13 @@ loadProduct()
 
 $(document).ready(function () {
   $("#searchBox").on("input", function () {
-    
+
     loadProduct()
-    
+
   });
+  $('#filterCat').on('change', function () {
+    loadProduct();
+  })
 });
 // loadInfo('#porductBox', '../parts/_loadProducts.php');
 
@@ -203,5 +206,6 @@ openDelModal = (pId, e) => {
 
 
 
-
-
+//  initializing tooltip for add to order
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))

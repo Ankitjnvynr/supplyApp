@@ -2,21 +2,81 @@
 session_start();
 if (!isset($_SESSION['loggedin']))
 {
-    header('location: ../login/');
-} else
-{
-    $_SESSION['loggedin'];
-    $user_id = $_SESSION['userId'];
-    $_SESSION['userEmail'];
-    $_SESSION['userName'];
+    header('Location: ../login/');
+    exit;
 }
+
 require_once '../partials/_db.php';
 
-$start = isset($_POST['start']) ? $_POST['start'] : 0;
-$limit = isset($_POST['limit']) ? $_POST['limit'] : 5;
+// Fetching session data
+$user_id = $_SESSION['userId'];
+$userEmail = $_SESSION['userEmail'];
+$userName = $_SESSION['userName'];
 
-$sql = "SELECT * FROM `orders` WHERE supplier_id = $user_id ORDER BY id DESC LIMIT $start,$limit";
-$res = $conn->query($sql);
+// Retrieving POST parameters and ensuring they are sanitized
+$searchbox = isset($_POST['searchbox']) ? $_POST['searchbox'] : '';
+$category = isset($_POST['category']) ? $_POST['category'] : '';
+$start_date = isset($_POST['start_date']) ? $_POST['start_date'] : '';
+$end_date = isset($_POST['end_date']) ? $_POST['end_date'] : '';
+$start = isset($_POST['start']) ? (int) $_POST['start'] : 0;
+$limit = isset($_POST['limit']) ? (int) $_POST['limit'] : 10;
+
+// Constructing the WHERE clause
+$whereClause = ' WHERE supplier_id = ?';
+$params = [$user_id];
+$types = 'i'; // Type for user_id
+
+if (!empty($searchbox))
+{
+    $searchTerms = explode(' ', $searchbox);
+    $whereClause .= ' AND (';
+    $first = true;
+    foreach ($searchTerms as $term)
+    {
+        if (!$first)
+        {
+            $whereClause .= ' OR ';
+        }
+        $whereClause .= "(order_id LIKE ? )";
+        $params[] = '%' . $term . '%';
+        // $params[] = '%' . $term . '%';
+        $types .= 's';
+        $first = false;
+    }
+    $whereClause .= ')';
+}
+
+if (!empty($category))
+{
+    $whereClause .= ' AND category = ?';
+    $params[] = $category;
+    $types .= 's';
+}
+// Adding date filter to the WHERE clause
+if (!empty($start_date))
+{
+    $whereClause .= ' AND dt >= ?';
+    $params[] = $start_date;
+    $types .= 's';
+}
+
+if (!empty($end_date))
+{
+    $whereClause .= ' AND dt <= ?';
+    $params[] = $end_date;
+    $types .= 's';
+}
+
+// Building the final SQL query
+$sql = "SELECT * FROM `orders`" . $whereClause . " ORDER BY id DESC LIMIT ?, ?";
+$params[] = $start;
+$params[] = $limit;
+$types .= 'ii';
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param($types, ...$params);
+$stmt->execute();
+$res = $stmt->get_result();
 $nums = $res->num_rows;
 if ($nums > 0)
 {

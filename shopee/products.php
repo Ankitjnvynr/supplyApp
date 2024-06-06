@@ -190,7 +190,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
                 </form>
             </div>
         </div>
-    </div>
+    </div>  
     <!-- =====================update product modal end================] -->
 
     <div class=" main position-relative">

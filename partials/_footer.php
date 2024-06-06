@@ -11,7 +11,7 @@
         <div class="dashboard position-relative <?php if ($activeMenu == 'orders')
                                                     echo 'active' ?>">
             <a href="orders.php" class="d-flex flex-column justify-content-center align-items-center  ">
-                <i class="fa-solid fa-cart-shopping"></i>
+                <i class="fa-brands fa-opencart"></i>
                 <span>Orders</span>
             </a>
         </div>

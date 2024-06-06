@@ -51,9 +51,11 @@ let fltrs = {
 };
 
 function loadOrders(fltrs, append = false) {
-    
-    if ($('#ordersContainer').children().last().text() === 'No order found') {
-        return;
+
+    if (append==true) {
+        if ($('#ordersContainer').children().last().text() === 'No order found') {
+            return;
+        }
     }
     $('#loadingAnimation').show();
     $.ajax({
@@ -69,11 +71,11 @@ function loadOrders(fltrs, append = false) {
             } else {
                 $('#ordersContainer').html(response);
             }
-            
+
             $('#loadingAnimation').hide();
         },
         error: function (xhr, status, error) {
-            
+
             $('#loadingAnimation').hide();
         }
     });
@@ -106,20 +108,20 @@ function getNumberOfItems(containerId) {
 
 
 $(document).ready(
-    $('#loadMoreBtn').on('click',function (){
+    $('#loadMoreBtn').on('click', function () {
         $('#loadMoreBtn').text = "loading..."
         // Usage
         var numberOfItems = getNumberOfItems('ordersContainer');
         console.log('Number of items in the container:', numberOfItems);
         updateParam('start', numberOfItems)
-    
+
         if (responseEnd) {
             console.table(fltrs)
             return;
         } else {
             let filter = getUrlParams();
             loadOrders(filter, true)
-    
+
         }
     })
 )

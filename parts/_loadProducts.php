@@ -52,9 +52,9 @@ if ($result->num_rows > 0)
     {
         $pid = $row['id'];
         ?>
-        <div class="productitem p-1 mt-2 text-muted ">
+        <div class="productitem p-1 mt-2 text-muted shadow-sm shadow-success rounded">
             <div class="row ">
-                <div class="col-11">
+                <div class="col-10">
                     <div class="d-flex align-items-center">
                         <div id="pname<?php echo $pid; ?>" class="text-success fw-semibold"><?php echo $row['product_name'] ?>
                         </div>
@@ -91,8 +91,18 @@ if ($result->num_rows > 0)
                         <i onclick="openDelModal(<?php echo $pid; ?>, this)" class="fa-solid fa-trash text-danger"></i>
                     </div>
                     <?php
+                } else
+                {
+                    ?>
+                    <div class="col-2 fs-7 d-flex flex-column gap-1 px-1">
+                        <input class="form-control m-0 p-0 px-2 fs-7" type="number" id="quantity" name="quantity" value="1" min="1">
+                        <button data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Add to Order" class="btn btn-success m-0 p-0" id="addToCart"><i class="fa-solid fa-cart-plus"></i></button>
+                    </div>
+                    <?php
                 }
+
                 ?>
+                
             </div>
         </div>
         <?php
@@ -100,7 +110,7 @@ if ($result->num_rows > 0)
 } else
 {
     echo '<div class="text-center text-muted"> No Products Found</div>';
-    
+
 }
 
 ?>
