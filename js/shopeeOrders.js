@@ -196,6 +196,7 @@ function deleteOrder(e, orderID) {
             type: 'POST',
             data: { product: orderID },
             success: function (response) {
+                console.log(response)
                 const element = e.parentNode.parentNode;
                 $(element).addClass('deleted');
                 setTimeout(() => {
