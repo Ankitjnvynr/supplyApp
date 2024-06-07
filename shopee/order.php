@@ -3,6 +3,12 @@ session_start();
 if (!isset($_SESSION['loggedin']))
 {
     header('location: ../login/');
+    exit;
+}
+if ($_SESSION['userType'] == 'supplier')
+{
+    header('location:../login/handlelogin.php');
+    exit;
 }
 $activeMenu = 'orders';
 $submenu = 'My Order';

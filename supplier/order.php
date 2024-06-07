@@ -3,7 +3,14 @@ session_start();
 if (!isset($_SESSION['loggedin']))
 {
     header('location: ../login/');
+    exit;
 }
+if ($_SESSION['userType'] == 'shopee')
+{
+    header('location:../login/handlelogin.php');
+    exit;
+}
+
 $activeMenu = 'orders';
 $submenu = 'My Order';
 require_once '../partials/_db.php';

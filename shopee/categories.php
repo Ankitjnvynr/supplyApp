@@ -6,6 +6,13 @@ if (!isset($_SESSION['loggedin']))
 }
 $activeMenu = 'products';
 $submenu = 'Categories';
+
+if ($_SESSION['userType'] == 'supplier')
+{
+    header('location:../login/handlelogin.php');
+    exit;
+}
+
 require_once '../partials/_db.php';
 ?>
 <?php

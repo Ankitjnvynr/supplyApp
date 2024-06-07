@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['loggedin']))
 {
     header('location: ../login/');
+    exit;
 } else
 {
     $_SESSION['loggedin'];
@@ -11,6 +12,10 @@ if (!isset($_SESSION['loggedin']))
     $_SESSION['userName'];
 }
 $activeMenu = 'dashboard';
+if ($_SESSION['userType'] == 'supplier')
+{
+    header('location:../login/handlelogin.php');
+}
 ?>
 
 <!doctype html>

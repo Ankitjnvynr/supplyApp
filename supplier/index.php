@@ -2,6 +2,7 @@
 session_start();
 if (!isset($_SESSION['loggedin'])) {
     header('location: ../login/');
+    exit;
 } else {
     $_SESSION['loggedin'];
     $_SESSION['userId'];
@@ -9,6 +10,12 @@ if (!isset($_SESSION['loggedin'])) {
     $_SESSION['userName'];
 }
 $activeMenu = 'dashboard';
+
+if ($_SESSION['userType'] == 'shopee')
+{
+    header('location:../login/handlelogin.php');
+    exit;
+}
 ?>
 
 <!doctype html>

@@ -2,11 +2,17 @@
 session_start();
 if (!isset($_SESSION['loggedin'])) {
     header('location: ../login/');
+    exit;
 } else {
     $_SESSION['loggedin'];
     $_SESSION['userId'];
     $_SESSION['userEmail'];
     $_SESSION['userName'];
+}
+if ($_SESSION['userType'] == 'supplier')
+{
+    header('location:../login/handlelogin.php');
+    exit;
 }
 $activeMenu = 'settings';
 require_once '../partials/_db.php';

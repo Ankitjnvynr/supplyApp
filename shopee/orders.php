@@ -11,6 +11,11 @@ if (!isset($_SESSION['loggedin']))
     $_SESSION['userName'];
 }
 $activeMenu = 'orders';
+if ($_SESSION['userType'] == 'supplier')
+{
+    header('location:../login/handlelogin.php');
+    exit;
+}
 
 require_once '../partials/_db.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']) && isset($_POST['selected_Supplier']))

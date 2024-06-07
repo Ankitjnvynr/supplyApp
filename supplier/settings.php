@@ -8,6 +8,12 @@ if (!isset($_SESSION['loggedin'])) {
     $_SESSION['userEmail'];
     $_SESSION['userName'];
 }
+if ($_SESSION['userType'] == 'shopee')
+{
+    header('location:../login/handlelogin.php');
+    exit;
+}
+
 $activeMenu = 'settings';
 require_once '../partials/_db.php';
 

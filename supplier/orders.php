@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['loggedin']))
 {
     header('location: ../login/');
+    exit;
 } else
 {
     $_SESSION['loggedin'];
@@ -10,6 +11,13 @@ if (!isset($_SESSION['loggedin']))
     $_SESSION['userEmail'];
     $_SESSION['userName'];
 }
+
+if ($_SESSION['userType'] == 'shopee')
+{
+    header('location:../login/handlelogin.php');
+    exit;
+}
+
 $activeMenu = 'orders';
 
 require_once '../partials/_db.php';
