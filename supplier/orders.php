@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']) && isset(
                 <span class="fw-bold fs-7 text-success">showing <span id="OrderCount1">5</span>/<span
                         id="OrderCount2">5</span> orders</span>
             </div>
-            <div style="margin-bottom: -12px;" class="-m-2 hide-scroll-bar d-flex mt-2 gap-1 overflow-x-scroll ">
+            <div class="-m-2 hide-scroll-bar d-flex mt-2 gap-1 overflow-x-scroll ">
                 <span onclick="resetFilter()"
                     class="filter-btn active cursor-pointer no-space-wrap bg-secondary-subtle fs-7 rounded rounded-pill px-2 p-1">All</span>
                 <span onclick="dateFilter(null,7)"

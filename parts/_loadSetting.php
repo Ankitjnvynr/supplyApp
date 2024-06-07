@@ -68,7 +68,17 @@ while ($row = $result->fetch_assoc())
                             aria-label=".form-control-sm example" required>
                     </div>
                     <div class="mb-3">
-                        <label for="shop_name" class="form-label-sm">Store Name</label>
+                        <label for="shop_name" class="form-label-sm">
+                            <?php
+                            if ($_SESSION['userType'] == 'supplier')
+                            {
+                                echo "Store Name";
+                            } else
+                            {
+                                echo "Shop Name";
+                            }
+                            ?>
+                        </label>
                         <input class="form-control form-control-sm" value="<?php echo $shopName ?>" id="shop_name" name="shop_name" type="text"
                             aria-label=".form-control-sm example" required>
                     </div>
@@ -95,13 +105,23 @@ while ($row = $result->fetch_assoc())
         </div>
     </div>
 </div>
-<div style="height:100%" class="d-flex flex-column justify-content-between">
+<div style="height:60%" class="d-flex flex-column justify-content-between border ">
     <div class="">
         <div class="container mb-3 d-flex  gap-2  align-items-center text-muted">
             <span class=" p-0 m-0"><i class="fa-solid fa-envelope"></i></span>
             <p class="p-0 m-0"><?php echo strtolower($userEmail) ?></p>
         </div>
-        <span class="text-success subheading container">Store Information:</span>
+        <span class="text-success subheading container">
+        <?php
+        if ($_SESSION['userType'] == 'supplier')
+        {
+            echo "Store ";
+        } else
+        {
+            echo "Shop ";
+        }
+        ?>    
+        Information:</span>
         <div class="container  d-flex  gap-2  align-items-center text-muted">
             <span class="w-2 p-0 m-0"><i class="fa-solid fa-store"></i></span>
             <p class="p-0 m-0 fw-bold"><?php echo ucwords(strtolower($shopName)) ?></p>

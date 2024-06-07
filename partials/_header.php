@@ -37,11 +37,7 @@
 
 
         </h6>
-        <div class="d-flex gap-3 ">
-            <!-- <a href="#"><i class="fa-solid fa-camera text-muted"></i></a> -->
-            <a class="text-danger d-flex gap-1 text-decoration-none align-items-center" href="../login/logout.php"><span
-                    class="fw-bold">Logout</span><i class="fa-solid fa-right-from-bracket  fs-5"></i></a>
-        </div>
+        
     </div>
     <div class="rounded-pill bg-secondary-subtle p-2 px-3 d-flex align-items-center mb-2">
         <i class="fa-solid fa-magnifying-glass fs-6"></i>
