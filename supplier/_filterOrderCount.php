@@ -11,11 +11,11 @@ if (!isset($_SESSION['loggedin']))
 
 require_once '../partials/_db.php';
 
-// Get the filter values from the form
-$searchbox = $_GET['searchbox']; // or $_POST['searchbox'] depending on your form method
-$category = $_GET['category']; // or $_POST['category'] depending on your form method
-$start_date = $_GET['start_date']; // or $_POST['start_date'] depending on your form method
-$end_date = $_GET['end_date']; // or $_POST['end_date'] depending on your form method
+$searchbox = isset($_POST['searchbox']) ? $_POST['searchbox'] : '';
+$category = isset($_POST['category']) ? $_POST['category'] : '';
+$start_date = isset($_POST['start_date']) ? $_POST['start_date'] : '';
+$end_date = isset($_POST['end_date']) ? $_POST['end_date'] : '';
+
 
 // Constructing the WHERE clause
 $whereClause = ' WHERE supplier_id = ?';
