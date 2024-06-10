@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updaeProfileInfo']))
             <div style="height:60%" class="d-flex flex-wrap gap-1">
 
                 <?php
-                $sql = "SELECT * FROM `users` WHERE user_type = 'shopee'";
+                $sql = "SELECT * FROM `users` WHERE user_type = 'shopee' ";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0)
                 {
@@ -104,20 +104,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updaeProfileInfo']))
                     {
                         $address = $row['city'] . ', ' . $row['tehsil'] . ', ' . $row['district'] . ', ' . $row['state'] . ' - ' . $row['pin_code'];
                         ?>
-                        <div style="flex-basis:45%" class="card flex-grow-1 flex-shrink-0 overflow-hidden shadow-sm border border-success-subtle">
+                        <div style="flex-basis:45%"
+                            class="card flex-grow-1 flex-shrink-0 overflow-hidden shadow-sm border border-success-subtle">
                             <div
                                 style="background-image: url('../pics/shopbanner.jpg'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: flex-end; height: 100px;">
                                 <h5 class="fs-6 fw-bold"
                                     style="margin: 0; padding: 10px; background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%); color: white; width: 100%; text-align: center; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
-                                    <?php echo $row['shop_name']; ?></h5>
+                                    <?php echo $row['shop_name']; ?>
+                                </h5>
                             </div>
                             <div class="px-1">
-                                <p class="m-0 p-0 fs-7">Owner: <span class="fw-semibold"><?php echo ucwords($row['name']); ?></span></p>
-                                <p class="m-0 p-0 fs-7">Phone: <span class="fw-semibold"><?php echo ucwords($row['phone']); ?></span></p>
+                                <p class="m-0 p-0 fs-7">Owner: <span
+                                        class="fw-semibold"><?php echo ucwords($row['name']); ?></span></p>
+                                <p class="m-0 p-0 fs-7">Phone: <span class="fw-semibold"><?php echo $row['phone']; ?></span></p>
                                 <p class="m-0 p-0 fs-7">Address: <span class="fw-medium"><?php echo $address ?></span></p>
                             </div>
+                            <hr class="m-0">
                             <div class="d-flex">
-
+                                <a class="fs-4 shadow-sm rounded-pill px-2 text-success text-decoration-none "
+                                    href="tel:<?php echo $row['phone'] ?>">
+                                    <i class="fa-solid fa-phone-volume"></i>
+                                </a>
+                                <a class="fs-4 px-2 shadow-sm rounded-pill text-success text-decoration-none"
+                                    href="https://wa.me/91<?php echo $row['phone'] ?>  ">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </a>
+                                <select class="form-select-sm p-0 m-0" name="" id="">
+                                    <option value="">select Route</option>
+                                    <?php
+                                    $routes = ['Radaur', 'Ladwa', 'Karnal', 'YNR'];
+                                    foreach ($routes as $key => $value) {
+                                        echo '<option value="'.$value.'">' . $value . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </div>
                         </div>
 
