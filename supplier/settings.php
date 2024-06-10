@@ -85,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updaeProfileInfo'])) {
 
         <div style="height:60%" class="d-flex flex-column justify-content-between">
             <div class=" " id="shopeeinfo"></div>
+            <div class=""><a href="contacts.php">All Shopkeeper</a></div>
             <div class="d-flex gap-3 container ">
                 <!-- <a href="#"><i class="fa-solid fa-camera text-muted"></i></a> -->
                 <a class=" btn btn-outline-danger d-flex gap-1 text-decoration-none align-items-center" href="../login/logout.php"><span class="fw-bold">Logout</span><i class="fa-solid fa-right-from-bracket  fs-5"></i></a>

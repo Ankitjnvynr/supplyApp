@@ -93,7 +93,8 @@ ADD COLUMN route_name VARCHAR(255) AFTER shop_name";
 try {
     runsql($conn, $addingRouteinUser, "route added to user");
 } catch (\Throwable $th) {
-    //throw $th;
+    echo "<pre>";
+    print_r($th->__toString());
 }
 
 // Close the database connection
