@@ -17,6 +17,7 @@ $userSql = "CREATE TABLE IF NOT EXISTS users  (
     pic TEXT,
     pin_code TEXT,
     shop_name VARCHAR(255),
+    status VARCHAR(20),
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
 
@@ -64,6 +65,9 @@ $orders = "CREATE TABLE IF NOT EXISTS orders(
     order_id VARCHAR(100) NOT NULL,
     supplier_id VARCHAR(100) NOT NULL,
     shopee_id VARCHAR(100) NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT '1',
+    view VARCHAR(2) NOT NULL DEFAULT '0',
+
     dt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
 
@@ -83,9 +87,14 @@ $orderItems = "CREATE TABLE IF NOT EXISTS  order_items (
 
 runsql($conn, $orderItems, "Order_items");
 
-$alterOrders = "ALTER TABLE orders
-ADD COLUMN status VARCHAR(20) NOT NULL DEFAULT '1' AFTER shopee_id;
-";
-runsql($conn, $alterOrders, "Order_items");
+$addingRouteinUser = "ALTER TABLE users 
+ADD COLUMN route_name VARCHAR(255) AFTER shop_name";
+
+try {
+    runsql($conn, $addingRouteinUser, "route added to user");
+} catch (\Throwable $th) {
+    //throw $th;
+}
+
 // Close the database connection
 $conn->close();

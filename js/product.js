@@ -209,3 +209,102 @@ openDelModal = (pId, e) => {
 //  initializing tooltip for add to order
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+function closeCartQty() {  // Remove existing cart divs if any
+  document.querySelectorAll('.cart-div').forEach(div => div.remove());
+}
+
+
+
+// for shopkeeper add to cart handle
+function addToCart(e, pId) {
+
+  // Remove existing cart divs if any
+  document.querySelectorAll('.cart-div').forEach(div => div.remove());
+
+  // Get button position
+  const rect = e.getBoundingClientRect();
+
+  // Create the cart div
+  const cartDiv = document.createElement('div');
+  cartDiv.classList.add('cart-div');
+  cartDiv.style.top = `${rect.top}px`;
+  cartDiv.style.left = `${rect.left - 150}px`; // Adjust the left position
+
+  // Add content to the cart div
+  const productId = pId;
+  cartDiv.innerHTML = `
+                    <button onclick=closeCartQty() style="right:9px;" type="button" class="btn-close float-end  position-absolute" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <label for="quantity">Quantity:</label>
+                    <input class="form-control p-0 m-0 px-2" type="number" id="quantity" name="quantity" min="1" value="1">
+                    <button class="btn btn-success m-0 p-0" id="saveQuantity"><i class="fa-solid fa-cart-plus"></i> Save</button>
+                `;
+
+  // Append the cart div to the body
+  document.body.appendChild(cartDiv);
+
+  // Add event listener to the save button
+  cartDiv.querySelector('#saveQuantity').addEventListener('click', function () {
+    const quantity = cartDiv.querySelector('#quantity').value;
+
+    $.ajax({
+      url: '../parts/_addFromCart.php',
+      method: 'POST',
+      data: {
+        pId: pId,
+        qty: quantity
+      },
+      success: function (response) {
+        console.log(response)
+        console.log("res",response == "added");
+        cartDiv.remove();
+        if (response == 0 || response == "added") {
+          // Create and display the popup
+          if (response==0) {
+            popMessage = "No active order found. Please create a new order.";
+          }
+          else{
+            popMessage = "Item added to your Order";
+          }
+          
+          const popup = document.createElement('div');
+          popup.classList.add('popup');
+          popup.innerHTML = `
+                    <div class="popup-content">
+                        <p>${popMessage}</p>
+                        <button class="btn btn-secondary" id="closePopup">OK</button>
+                    </div>
+                `;
+
+          // Style the popup
+          popup.style.position = 'fixed';
+          popup.style.top = '50%';
+          popup.style.left = '50%';
+          popup.style.transform = 'translate(-50%, -50%)';
+          popup.style.backgroundColor = 'white';
+          popup.style.padding = '20px';
+          popup.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
+          popup.style.zIndex = '1000';
+          popup.style.width = '300px';
+          popup.style.border = '2 px solid green';
+          popup.style.textAlign = 'center';
+
+
+          // Append the popup to the body
+          document.body.appendChild(popup);
+
+          // Add event listener to the close button
+          popup.querySelector('#closePopup').addEventListener('click', function () {
+            popup.remove();
+          });
+        } else {
+          // If the response is not "no active order", remove the cart div
+          cartDiv.remove();
+        }
+      }
+    })
+
+
+  });
+}
+

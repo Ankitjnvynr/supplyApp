@@ -94,9 +94,8 @@ if ($result->num_rows > 0)
                 } else
                 {
                     ?>
-                    <div class="col-2 fs-7 d-flex flex-column gap-1 px-1">
-                        <input class="form-control m-0 p-0 px-2 fs-7" type="number" id="quantity" name="quantity" value="1" min="1">
-                        <button data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Add to Order" class="btn btn-success m-0 p-0" id="addToCart"><i class="fa-solid fa-cart-plus"></i></button>
+                    <div class="col-2 fs-7 d-flex flex-column justify-content-center gap-1 px-1">
+                        <button onclick="addToCart(this,<?php echo $pid ?>)" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Add to Order" class="btn btn-success m-0 p-0" ><i class="fa-solid fa-cart-plus"></i></button>
                     </div>
                     <?php
                 }

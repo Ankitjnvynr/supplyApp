@@ -23,7 +23,7 @@ if (isset($_POST['userPassword']) && isset($_POST['userConfirmPassword']) && iss
     {
         if ($userPassword == $userConfirmPassword)
         {
-            $userType = 'supplier';
+            $userType = 'shopee';
             $sql = "INSERT INTO users (email, password,user_type) VALUES (?, ?,?)";
             // Prepare the statement
             $hash = md5($userPassword);

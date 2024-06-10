@@ -37,11 +37,10 @@
 
 
         </h6>
-        
+
     </div>
     <div class="rounded-pill bg-secondary-subtle p-2 px-3 d-flex align-items-center mb-2">
         <i class="fa-solid fa-magnifying-glass fs-6"></i>
         <input id="searchBox" class="search-input m-0 p-0  bg-none px-2" type="text" placeholder="search....">
     </div>
 </div>
-

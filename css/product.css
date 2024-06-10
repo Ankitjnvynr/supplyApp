@@ -1,3 +1,17 @@
-#porductBox{
-    overflow-y: scroll;
+#porductBox {
+  overflow-y: scroll;
+}
+
+.cart-div {
+  position: absolute;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: smaller;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  border-radius: 10px;
+  max-width: 150px;
 }
