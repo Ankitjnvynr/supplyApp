@@ -106,7 +106,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
             <div class="rounded rounded-pill bg-secondary-subtle d-flex align-items-center gap-2 px-1">
                 <select id="filterCat" class="form-select form-select-sm rounded rounded-pill bg-secondary-subtle"
                     aria-label="Small select example">
-                    <option value="" selected>Category</option>
+                    
+                    <?php
+                    include '../parts/_loadCategory.php';
+                    ?>
 
                 </select>
                 <?php

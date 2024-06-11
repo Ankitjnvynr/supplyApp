@@ -112,6 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updaeProfileInfo']))
                                     style="margin: 0; padding: 10px; background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%); color: white; width: 100%; text-align: center; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
                                     <?php echo $row['shop_name']; ?>
                                 </h5>
+
                             </div>
                             <div class="px-1">
                                 <p class="m-0 p-0 fs-7">Owner: <span
@@ -129,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updaeProfileInfo']))
                                     href="https://wa.me/91<?php echo $row['phone'] ?>  ">
                                     <i class="fa-brands fa-whatsapp"></i>
                                 </a>
-                                <select class="form-select-sm p-0 m-0" name="" id="">
+                                <select class="form-select-sm p-0 m-0 fs-7" name="" id="">
                                     <option value="">select Route</option>
                                     <?php
                                     $routes = ['Radaur', 'Ladwa', 'Karnal', 'YNR'];

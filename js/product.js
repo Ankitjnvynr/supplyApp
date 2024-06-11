@@ -1,5 +1,6 @@
 let loadInfo = (target, page) => {
   $(target).load(page)
+  console.log("i am from",target,page)
 }
 // function to load the product
 loadProduct = () => {
@@ -281,13 +282,15 @@ function addToCart(e, pId) {
           popup.style.top = '50%';
           popup.style.left = '50%';
           popup.style.transform = 'translate(-50%, -50%)';
-          popup.style.backgroundColor = 'white';
+          popup.style.backgroundColor = 'transparent';
           popup.style.padding = '20px';
           popup.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
           popup.style.zIndex = '1000';
           popup.style.width = '300px';
           popup.style.border = '2 px solid green';
           popup.style.textAlign = 'center';
+          popup.style.backdropFilter = 'blur(5px)';
+          popup.classList.add( 'shadow','rounded' ,'border','border-success')
 
 
           // Append the popup to the body
