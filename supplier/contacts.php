@@ -20,52 +20,18 @@ $activeMenu = 'settings';
 $submenu = 'contacts';
 require_once '../partials/_db.php';
 
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updaeProfileInfo']))
+// Pagination setup
+$limit = 10; // Number of entries to show per page
+if (isset($_GET["page"]))
 {
-    // Collect data from the form
-    $name = $_POST['name'];
-    $phone = $_POST['phone'];
-    $state = $_POST['state'];
-    $district = $_POST['district'];
-    $tehsil = $_POST['tehsil'];
-    $city = $_POST['city'];
-    $pin_code = $_POST['pin_code'];
-    $shop_name = $_POST['shop_name'];
-
-    // Retrieve user's email from session
-    $userEmail = $_SESSION['userEmail'];
-
-    // SQL update query
-    $sql = "UPDATE users SET name=?, phone=?, state=?, district=?, tehsil=?, city=?, pin_code=?, shop_name=? WHERE email=?";
-
-    // Prepare the statement
-    $stmt = $conn->prepare($sql);
-
-    if ($stmt)
-    {
-        // Bind parameters and execute the statement
-        $stmt->bind_param("sssssssss", $name, $phone, $state, $district, $tehsil, $city, $pin_code, $shop_name, $userEmail);
-
-        if ($stmt->execute())
-        {
-            // echo "User data updated successfully";
-            // Update session variables if needed
-            $_SESSION['userName'] = $name;
-            // Redirect to a new page after updating
-
-        } else
-        {
-            echo "Error updating user data: " . $stmt->error;
-        }
-        // Close the statement
-        $stmt->close();
-    } else
-    {
-        echo "Error preparing statement: " . $conn->error;
-    }
+    $page = $_GET["page"];
+} else
+{
+    $page = 1;
 }
+$start_from = ($page - 1) * $limit;
+
+// Handle profile update
 
 ?>
 
@@ -96,7 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updaeProfileInfo']))
             <div style="height:60%" class="d-flex flex-wrap gap-1">
 
                 <?php
-                $sql = "SELECT * FROM `users` WHERE user_type = 'shopee' ";
+                // Fetch paginated data
+                $sql = "SELECT * FROM `users` WHERE user_type = 'shopee' LIMIT $start_from, $limit";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0)
                 {
@@ -122,22 +89,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updaeProfileInfo']))
                             </div>
                             <hr class="m-0">
                             <div class="d-flex flex-wrap gap-1 p-1">
-                                <a style="flex-basis:50px;" class="fs-6 flex-grow-1 flex-shrink-0 shadow-sm rounded-pill px-2 text-success text-decoration-none border "
+                                <a style="flex-basis:50px;"
+                                    class="fs-6 flex-grow-1 flex-shrink-0 shadow-sm rounded-pill px-2 text-success text-decoration-none border "
                                     href="tel:<?php echo $row['phone'] ?>">
                                     <i class="fa-solid fa-phone-volume"></i>
                                     call
                                 </a>
-                                <a style="flex-basis:50px;" class="fs-6 flex-grow-1 flex-shrink-0 shadow-sm rounded-pill px-2 text-success text-decoration-none border "
+                                <a style="flex-basis:50px;"
+                                    class="fs-6 flex-grow-1 flex-shrink-0 shadow-sm rounded-pill px-2 text-success text-decoration-none border "
                                     href="https://wa.me/91<?php echo $row['phone'] ?>  ">
                                     <i class="fa-brands fa-whatsapp"></i>
                                     W/A
                                 </a>
-                                <select style="flex-basis:50px;" class="form-select-sm p-0 m-0 fs-6 border rounded rounded-pill text-success flex-grow-1 flex-shrink-0 " name="" id="">
+                                <select style="flex-basis:50px;"
+                                    class="form-select-sm p-0 m-0 fs-6 border rounded rounded-pill text-success flex-grow-1 flex-shrink-0 "
+                                    name="" id="">
                                     <option value="">select Route</option>
                                     <?php
                                     $routes = ['Radaur', 'Ladwa', 'Karnal', 'YNR'];
-                                    foreach ($routes as $key => $value) {
-                                        echo '<option value="'.$value.'">' . $value . '</option>';
+                                    foreach ($routes as $key => $value)
+                                    {
+                                        echo '<option value="' . $value . '">' . $value . '</option>';
                                     }
                                     ?>
                                 </select>
@@ -151,6 +123,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updaeProfileInfo']))
 
                 ?>
             </div>
+            <!-- Pagination -->
+             <hr>
+            <nav aria-label="Page navigation example my-2">
+                <ul class="pagination pagination-sm justify-content-center">
+                    <?php
+                    $sql = "SELECT COUNT(id) FROM users WHERE user_type = 'shopee'";
+                    $result = $conn->query($sql);
+                    $row = $result->fetch_row();
+                    $total_records = $row[0];
+                    $total_pages = ceil($total_records / $limit);
+                    for ($i = 1; $i <= $total_pages; $i++)
+                    {
+                        echo "<li class='page-item";
+                        if ($i == $page)
+                            echo " active";
+                        echo "'><a class='page-link' href='contacts.php?page=" . $i . "'>" . $i . "</a></li>";
+                    }
+                    ?>
+                </ul>
+            </nav>
         </div>
 
         <?php
@@ -160,10 +152,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updaeProfileInfo']))
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
         </script>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="../js/settings.js"></script>
-
-</body>
-
-</html>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0Tci

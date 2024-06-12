@@ -1,4 +1,4 @@
-<hr class="m-1 p-0">
+
 <?php
 session_start();
 require_once '../partials/_db.php';

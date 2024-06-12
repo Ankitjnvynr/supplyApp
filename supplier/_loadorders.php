@@ -82,6 +82,37 @@ if ($nums > 0)
 {
     while ($row = $res->fetch_assoc())
     {
+        $iiid = $row['order_id'];
+
+        $itemsSQL = "SELECT product_name FROM `order_items` WHERE order_id = ?";
+        $stmtItems = $conn->prepare($itemsSQL);
+        $stmtItems->bind_param('s', $iiid);
+        $stmtItems->execute();
+        $all_items = $stmtItems->get_result();
+        $productNames = [];
+        if ($all_items)
+        {
+            if ($all_items->num_rows > 0)
+            {
+                while ($rowItem = $all_items->fetch_assoc())
+                {
+                    $productNames[] = $rowItem['product_name'];
+                }
+                $productNamesString = implode(", ", $productNames);
+            } else
+            {
+                $productNamesString = "<span class='text-danger' >Not any item yet</span>";
+            }
+
+        } else
+        {
+            // Handle query error
+            echo "Error retrieving product names.";
+        }
+
+
+
+
         // fetching shopekeeper details 
         $supplier_id = $row['shopee_id'];
         $supplier = "SELECT * FROM `users` WHERE id = $supplier_id";
@@ -106,10 +137,10 @@ if ($nums > 0)
                         class="fa-solid fa-phone"></i></a>
             </p>
             <div class="d-flex justify-content-between">
-                <p class="m-0 fs-7 text-muted text-truncate">They Ordered:
+                <p class="m-0 fs-7 text-muted text-truncate pr-2">They Ordered:
 
                     <?php
-$itemsSQL = "SELECT product_name FROM `order_items`WHERE order_id = '' "
+                    echo $productNamesString;
                     ?>
 
                 </p>

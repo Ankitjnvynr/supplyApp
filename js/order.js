@@ -87,5 +87,19 @@ $(document).ready(function () {
 });
 
 
+//cahnging the order status
+// changing the status of order active or disable adding new items
+function changeOrderStatus(e, orderID) {
+    const status = e.checked ? "1" : "0";
+    $.ajax({
+        url: "../parts/_updateOrderStatus.php",
+        type: "POST",
+        data: {
+            order_id: orderID,
+            status: status,
+        },
+    });
+}
+
 
 

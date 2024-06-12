@@ -161,6 +161,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_order']) && isset(
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
     <script src="../js/supplierOrder.js"></script>
+
+    <script>
+        // changing the status of order active or disable adding new items
+        function changeOrderStatus(e, orderID) {
+            const status = e.checked ? "1" : "0";
+            $.ajax({
+                url: "../parts/_updateOrderStatus.php",
+                type: "POST",
+                data: {
+                    order_id: orderID,
+                    status: status,
+                },
+            });
+        }
+    </script>
 </body>
 
 </html>

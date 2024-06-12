@@ -82,6 +82,34 @@ if ($res->num_rows > 0)
 {
     while ($row = $res->fetch_assoc())
     {
+        $iiid = $row['order_id'];
+
+        $itemsSQL = "SELECT product_name FROM `order_items` WHERE order_id = ?";
+        $stmtItems = $conn->prepare($itemsSQL);
+        $stmtItems->bind_param('s', $iiid);
+        $stmtItems->execute();
+        $all_items = $stmtItems->get_result();
+        $productNames = [];
+        if ($all_items)
+        {
+            if ($all_items->num_rows > 0)
+            {
+                while ($rowItem = $all_items->fetch_assoc())
+                {
+                    $productNames[] = $rowItem['product_name'];
+                }
+                $productNamesString = implode(", ", $productNames);
+            } else
+            {
+                $productNamesString = "<span class='text-danger' >Not any item yet</span>";
+            }
+
+        } else
+        {
+            // Handle query error
+            echo "Error retrieving product names.";
+        }
+
         // Fetching supplier details
         $supplier_id = $row['supplier_id'];
         $supplierStmt = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
@@ -109,7 +137,11 @@ if ($res->num_rows > 0)
                     (<?php echo ucfirst($Supplier_name); ?>) 
                 </a>
             </p>
-            <p class="m-0 fs-7 text-muted">You Ordered: Pensil, Erasor, Oyes, .....</p>
+            <p class="m-0 fs-7 text-muted text-truncate">You Ordered: 
+                <?php
+                echo $productNamesString;
+                ?>
+            </p>
             <div class="d-flex gap-1">
                 <a class="fs-4 shadow-sm rounded-pill px-2 text-success text-decoration-none "
                     href="tel:<?php echo $Supplier_phone ?>">

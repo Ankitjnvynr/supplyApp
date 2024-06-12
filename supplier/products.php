@@ -247,10 +247,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addProduct']))
             <i data-bs-toggle="modal" data-bs-target="#addProductModal"
                 class="fa-solid fa-circle-plus fs-1 text-success"></i>
         </div>
+        <hr class="m-1 p-0">
         <div id="porductBox" class="container text-sm ">
 
 
         </div>
+        
+        <div class="container mt-3">
+            <div id="loadMoreBtn" class=" fs-7 fw-semibold btn btn-outline-success float-end  p-0 px-2">load
+                More...</div>
+        </div>
+
         <?php
         include '../partials/_footer.php';
         ?>

@@ -1,14 +1,18 @@
 let loadInfo = (target, page) => {
   $(target).load(page)
-  console.log("i am from",target,page)
 }
 // function to load the product
-loadProduct = () => {
+loadProduct = (start, append = false) => {
+  if (append == true) {
+    if ($("#porductBox").children().last().text() === " No Products Found") {
+      return;
+    }
+  }
   fltrs = {
     serachbox: $('#searchBox').val(),
     category: $('#filterCat').val(),
-    start: '0',
-    limit: '12',
+    start: start,
+    limit: '10',
   }
 
   $.ajax({
@@ -16,21 +20,24 @@ loadProduct = () => {
     type: 'POST',
     data: fltrs,
     success: function (response) {
-      // console.log(response)
-      $('#porductBox').html(response)
+      if (!append) {
+        $('#porductBox').html(response)
+      } else {
+        $('#porductBox').append(response)
+      }
     }
   })
 }
-loadProduct()
+loadProduct(1)
 
 $(document).ready(function () {
   $("#searchBox").on("input", function () {
 
-    loadProduct()
+    loadProduct(1)
 
   });
   $('#filterCat').on('change', function () {
-    loadProduct();
+    loadProduct(1);
   })
 });
 // loadInfo('#porductBox', '../parts/_loadProducts.php');
@@ -257,17 +264,17 @@ function addToCart(e, pId) {
       },
       success: function (response) {
         console.log(response)
-        console.log("res",response == "added");
+        console.log("res", response == "added");
         cartDiv.remove();
         if (response == 0 || response == "added") {
           // Create and display the popup
-          if (response==0) {
+          if (response == 0) {
             popMessage = "No active order found. Please create a new order.";
           }
-          else{
+          else {
             popMessage = "Item added to your Order";
           }
-          
+
           const popup = document.createElement('div');
           popup.classList.add('popup');
           popup.innerHTML = `
@@ -290,7 +297,7 @@ function addToCart(e, pId) {
           popup.style.border = '2 px solid green';
           popup.style.textAlign = 'center';
           popup.style.backdropFilter = 'blur(5px)';
-          popup.classList.add( 'shadow','rounded' ,'border','border-success')
+          popup.classList.add('shadow', 'rounded', 'border', 'border-success')
 
 
           // Append the popup to the body
@@ -311,3 +318,22 @@ function addToCart(e, pId) {
   });
 }
 
+// counts the numbers of items contains the div of products
+function getNumberOfItems(containerId) {
+  var container = document.getElementById(containerId);
+  if (container) {
+    return container.childElementCount;
+  } else {
+    console.error("Container with id " + containerId + " not found.");
+    return 0;
+  }
+}
+
+
+$(document).ready(function () {
+  $('#loadMoreBtn').on('click', function () {
+    let start = getNumberOfItems('porductBox');
+
+    loadProduct(start, true)
+  })
+})
