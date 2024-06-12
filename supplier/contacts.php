@@ -121,16 +121,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updaeProfileInfo']))
                                 <p class="m-0 p-0 fs-7">Address: <span class="fw-medium"><?php echo $address ?></span></p>
                             </div>
                             <hr class="m-0">
-                            <div class="d-flex">
-                                <a class="fs-4 shadow-sm rounded-pill px-2 text-success text-decoration-none "
+                            <div class="d-flex flex-wrap gap-1 p-1">
+                                <a style="flex-basis:50px;" class="fs-6 flex-grow-1 flex-shrink-0 shadow-sm rounded-pill px-2 text-success text-decoration-none border "
                                     href="tel:<?php echo $row['phone'] ?>">
                                     <i class="fa-solid fa-phone-volume"></i>
+                                    call
                                 </a>
-                                <a class="fs-4 px-2 shadow-sm rounded-pill text-success text-decoration-none"
+                                <a style="flex-basis:50px;" class="fs-6 flex-grow-1 flex-shrink-0 shadow-sm rounded-pill px-2 text-success text-decoration-none border "
                                     href="https://wa.me/91<?php echo $row['phone'] ?>  ">
                                     <i class="fa-brands fa-whatsapp"></i>
+                                    W/A
                                 </a>
-                                <select class="form-select-sm p-0 m-0 fs-7" name="" id="">
+                                <select style="flex-basis:50px;" class="form-select-sm p-0 m-0 fs-6 border rounded rounded-pill text-success flex-grow-1 flex-shrink-0 " name="" id="">
                                     <option value="">select Route</option>
                                     <?php
                                     $routes = ['Radaur', 'Ladwa', 'Karnal', 'YNR'];

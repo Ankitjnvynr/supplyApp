@@ -106,7 +106,13 @@ if ($nums > 0)
                         class="fa-solid fa-phone"></i></a>
             </p>
             <div class="d-flex justify-content-between">
-                <p class="m-0 fs-7 text-muted">You Ordered: Pensil, Erasor, Oyes, .....</p>
+                <p class="m-0 fs-7 text-muted text-truncate">They Ordered:
+
+                    <?php
+$itemsSQL = "SELECT product_name FROM `order_items`WHERE order_id = '' "
+                    ?>
+
+                </p>
                 <div class="form-check form-switch form-check-reverse border-top border-bottom border-success-subtle rounded ">
                     <input onchange="changeOrderStatus(this, <?php echo $row['order_id'] ?>)" class="form-check-input "
                         type="checkbox" id="flexSwitchCheckReverse" <?php echo $row['status'] == '1' ? 'checked' : '' ?>>
@@ -114,10 +120,12 @@ if ($nums > 0)
                 </div>
             </div>
             <div class="d-flex gap-2">
-                <a class="fs-4 shadow rounded-pill px-2 text-success text-decoration-none " href="tel:<?php echo $Supplier_phone ?>">
+                <a class="fs-4 shadow rounded-pill px-2 text-success text-decoration-none "
+                    href="tel:<?php echo $Supplier_phone ?>">
                     <i class="fa-solid fa-phone-volume"></i>
                 </a>
-                <a class="fs-4 px-2 shadow rounded-pill text-success text-decoration-none" href="https://wa.me/91<?php echo $Supplier_phone ?>">
+                <a class="fs-4 px-2 shadow rounded-pill text-success text-decoration-none"
+                    href="https://wa.me/91<?php echo $Supplier_phone ?>">
                     <i class="fa-brands fa-whatsapp"></i>
                 </a>
                 <a href="order.php?order=<?php echo $row['order_id']; ?>"
