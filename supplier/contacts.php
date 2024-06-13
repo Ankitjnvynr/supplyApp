@@ -16,8 +16,8 @@ if ($_SESSION['userType'] == 'shopee')
     exit;
 }
 
-$activeMenu = 'settings';
-$submenu = 'contacts';
+$activeMenu = 'contacts';
+
 require_once '../partials/_db.php';
 
 // Pagination setup
